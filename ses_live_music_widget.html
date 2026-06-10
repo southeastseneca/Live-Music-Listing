@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Live Music — South East Seneca</title>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{color-scheme:light}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Georgia',serif;background:#4E6D77;color:#f5deb3}
+  .widget{max-width:960px;margin:0 auto;padding:0 20px 40px}
+  .header{background:#1D272B;text-align:center;padding:28px 20px 22px;margin-bottom:28px}
+  .header-eyebrow{font-family:'Antonio',sans-serif;font-size:13px;letter-spacing:.22em;text-transform:uppercase;color:#f5deb3;margin-bottom:4px}
+  .header-title{font-family:'Antonio',sans-serif;font-size:52px;font-weight:700;color:#e8aa4a;letter-spacing:.04em;text-transform:uppercase;line-height:1}
+  .header-sub{font-family:'Antonio',sans-serif;font-size:13px;color:#f5deb3;margin-top:6px;letter-spacing:.1em;text-transform:uppercase}
+  .header-rule{width:120px;height:1px;background:#c9a96e;margin:12px auto 0}
+  .week-section{margin-bottom:12px;border-radius:10px;overflow:hidden}
+  .week-toggle{width:100%;background:#1D272B;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:14px 20px;color:#f5deb3;font-family:'Antonio',sans-serif;font-size:16px;letter-spacing:.08em;text-transform:uppercase;transition:background 0.2s}
+  .week-toggle:hover{background:#263035}
+  .week-toggle.current{background:#e8aa4a;color:#1D272B}
+  .week-toggle.current:hover{background:#d9993b}
+  .week-badge{font-family:'Antonio',sans-serif;font-size:11px;letter-spacing:.1em;padding:3px 10px;border-radius:20px;text-transform:uppercase}
+  .week-toggle.current .week-badge{background:#1D272B;color:#e8aa4a}
+  .week-toggle:not(.current) .week-badge{background:#e8aa4a22;color:#e8aa4a}
+  .week-toggle .chevron{font-size:14px;transition:transform 0.2s}
+  .week-toggle.open .chevron{transform:rotate(180deg)}
+  .week-content{display:none;background:#4E6D77;padding:16px 0}
+  .week-content.open{display:block}
+  .days-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:0 12px}
+  .day-card{background:#323D41;border-radius:8px;overflow:hidden;border:1px solid #4a5a60}
+  .day-header{background:#e8aa4a;padding:7px 14px;display:flex;justify-content:space-between;align-items:center}
+  .day-name{font-family:'Antonio',sans-serif;font-size:14px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:#1D272B}
+  .day-date-lbl{font-family:'Antonio',sans-serif;font-size:11px;color:#1D272B;opacity:0.7}
+  .events-list{padding:10px 14px;display:flex;flex-direction:column;gap:9px}
+  .event-item{display:flex;align-items:center;gap:10px}
+  .logo-box{width:38px;height:38px;border-radius:6px;flex-shrink:0;overflow:hidden;display:flex;align-items:center;justify-content:center;padding:3px}
+  .logo-box img{width:100%;height:100%;object-fit:contain}
+  .logo-initials{width:38px;height:38px;border-radius:6px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-family:'Antonio',sans-serif;font-size:12px;font-weight:700;letter-spacing:.05em}
+  .event-info{flex:1;border-left:2px solid #6b8a8a;padding-left:9px}
+  .event-venue a{font-family:'Antonio',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#e8aa4a;text-decoration:none}
+  .event-venue a:hover{color:#f5deb3;text-decoration:underline}
+  .event-artist{font-family:'Georgia',serif;font-size:13px;color:#f5deb3;line-height:1.3;margin-top:1px}
+  .event-time{font-family:'Antonio',sans-serif;font-size:10px;color:#9b7b5a;margin-top:1px}
+  .event-link{font-family:'Antonio',sans-serif;font-size:10px;color:#6b8a8a;text-decoration:none;white-space:nowrap;flex-shrink:0}
+  .event-link:hover{color:#e8aa4a}
+  .past-toggle-btn{display:block;width:100%;text-align:center;background:none;border:1px solid #4a5a60;border-radius:8px;color:#9b7b5a;font-family:'Antonio',sans-serif;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:10px;cursor:pointer;margin-bottom:16px}
+  .past-toggle-btn:hover{color:#e8aa4a;border-color:#e8aa4a}
+  .footer{text-align:center;margin-top:24px;font-family:'Antonio',sans-serif;font-size:11px;color:#4a6470;letter-spacing:.08em;text-transform:uppercase}
+  .footer a{color:#6b8a8a;text-decoration:none}
+  .footer a:hover{color:#e8aa4a}
+  @media(max-width:600px){.header-title{font-size:36px}.days-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="widget">
+  <div class="header">
+    <div class="header-eyebrow">South East Seneca</div>
+    <div class="header-title">Live Music</div>
+    <div class="header-sub">2026 Season</div>
+    <div class="header-rule"></div>
+  </div>
+  <button class="past-toggle-btn" id="pastBtn" onclick="togglePast()">▸ Show past weeks</button>
+  <div id="weeks-container"></div>
+  <div class="footer">
+    <a href="https://www.southeastseneca.com" target="_blank">southeastseneca.com</a>
+    &nbsp;•&nbsp; Updated every Monday
+  </div>
+</div>
+<script>
+const LOGOS = {
+  "Grist Iron Brewing":    {bg:"#C45022",fg:"#fff",abbr:"GI",  url:"https://images.squarespace-cdn.com/content/v1/63e01105bbabc6724dccfee7/6a1782cc-ddc9-461a-ae07-7a58df23bd95/GristIron_ICON_white%20(1).png"},
+  "Two Goats Brewing":     {bg:"#7A1A1A",fg:"#C9A96E",abbr:"TG",url:"https://images.squarespace-cdn.com/content/v1/5d84e3e3b29b963cc74972df/1571418512246-OLYZLTDHA71PMFBVY6W1/logo-no-background.png"},
+  "Hazlitt 1852 Vineyards":{bg:"#8fa8a8",fg:"#1a1a1a",abbr:"H",url:"https://hazlitt1852.com/wp-content/themes/accelmwp/img/horse-logo.png"},
+  "Wagner Vineyards":      {bg:"#fff",fg:"#1a1a1a",abbr:"W",   url:"https://wagnervineyards.com/wp-content/uploads/2015/03/wagner-vineyards-grayscale-523x150.png"},
+  "Scale House Brewery":   {bg:"#1a3a5c",fg:"#f5deb3",abbr:"SH",url:"https://www.scalehousebrews.com/uploads/b/7a979680-af18-11ea-9505-9d870da3bf0f/sh_horizontalidentity_hector_cream.png"},
+  "Solera Taphouse":       {bg:"#4a6670",fg:"#fff",abbr:"ST",  url:"https://images.squarespace-cdn.com/content/v1/605dfc9e76b28e1d3d03a95e/d4a09045-8487-4183-a99d-a7aca327ccd9/Solera+Taphouse+1CLR+VER.png?format=1500w"},
+  "Lucky Hare Brewing":    {bg:"#2d4a3e",fg:"#f5deb3",abbr:"LH",url:"https://images.squarespace-cdn.com/content/v1/65f75dde7686ab01d9fceca4/98a4d59b-6a3d-4b27-aca0-237c228eda0a/luckyharelogo-goldblack.png?format=1500w"},
+  "Rasta Ranch Vineyards": {bg:"#8B1A1A",fg:"#e8aa4a",abbr:"RR"},
+  "Idol Ridge Winery":     {bg:"#6a4a8a",fg:"#fff",abbr:"IR",  url:"https://mfwineriesdistilleries.com/wp-content/uploads/2025/03/logo-ir-stacked.svg"},
+  "Either Oar":            {bg:"#1a1a1a",fg:"#e8aa4a",abbr:"EO",url:"https://mfwineriesdistilleries.com/wp-content/uploads/2025/08/either-or-logo-home-page.png"},
+  "Stonecat Café":         {bg:"#6a4a7a",fg:"#fff",abbr:"SC",  url:"https://static.wixstatic.com/media/873a29_effdbd1277074dfda907e9328323d6b4~mv2.png"},
+  "Forge Cellars":         {bg:"#1a2a3a",fg:"#f5deb3",abbr:"FC",url:"https://images.squarespace-cdn.com/content/v1/6488ceb72940c72e6a265453/e8e6b134-3ec0-4bb1-acef-1a1588727340/FClogo-WH.png?format=1500w"},
+  "Atwater Vineyards":     {bg:"#555",fg:"#fff",abbr:"AV",     url:"https://lirp.cdn-website.com/c7f86015/dms3rep/multi/opt/Screenshot+2025-05-20+at+10.12.38-AM-212w.png"},
+  "Damiani Cellars":       {bg:"#8B6914",fg:"#1a1a1a",abbr:"D"},
+  "Hillick & Hobbs":       {bg:"#f5f5f0",fg:"#1a1a1a",abbr:"HH",url:"https://www.hillickandhobbs.com/wp-content/uploads/2025/03/hillick-hobbs-logo.png"},
+  "Leidenfrost Vineyards": {bg:"#1a1a1a",fg:"#fff",abbr:"LV"},
+  "Osmote Wines":          {bg:"#1a1a1a",fg:"#fff",abbr:"OS"},
+};
+
+const EVENTS = [
+  {date:'2026-06-03',venue:'Forge Cellars',artist:'Road Man',time:'5–7 PM',url:'https://www.forgecellars.com'},
+  {date:'2026-06-03',venue:'Scale House Brewery',artist:'Rich Evans',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-03',venue:'Lucky Hare Brewing',artist:'Karlee Weaver',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-04',venue:'Two Goats Brewing',artist:'Oliver Burdo',time:'5–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-04',venue:'Grist Iron Brewing',artist:'NEO Project',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-04',venue:'Atwater Vineyards',artist:'Joe Lule',time:'6–9 PM',url:'https://www.atwatervineyards.com'},
+  {date:'2026-06-04',venue:'Scale House Brewery',artist:'Hector Open Mic',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-04',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-06-05',venue:'Wagner Vineyards',artist:'David Siurano',time:'5 PM (music @ 6:30)',url:'https://www.wagnervineyards.com'},
+  {date:'2026-06-05',venue:'Hazlitt 1852 Vineyards',artist:'High Caliber',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-05',venue:'Solera Taphouse',artist:'Freight',time:'6–9 PM',url:'https://www.solerataphouse.com'},
+  {date:'2026-06-05',venue:'Grist Iron Brewing',artist:'Junior Rich Project',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-05',venue:'Two Goats Brewing',artist:'Grassanova',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-05',venue:'Scale House Brewery',artist:'Mike Cavalier & Tate Williams',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-05',venue:'Lucky Hare Brewing',artist:'The Sweats',time:'5–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-06',venue:'Grist Iron Brewing',artist:'Sleeping Dogs',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-06',venue:'Two Goats Brewing',artist:'Terrapin Station',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-06',venue:'Atwater Vineyards',artist:'DJ Astro',time:'6:30–8:30 PM',url:'https://www.atwatervineyards.com'},
+  {date:'2026-06-06',venue:'Scale House Brewery',artist:'Mr Monkey',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-07',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-07',venue:'Grist Iron Brewing',artist:'Dylan Doyle',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-07',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-06-07',venue:'Hazlitt 1852 Vineyards',artist:'Pat Comstock & Scott Muir',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-07',venue:'Two Goats Brewing',artist:'Cayuga Blue Notes',time:'4–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-07',venue:'Atwater Vineyards',artist:'CCCelebration',time:'5–7 PM',url:'https://www.atwatervineyards.com'},
+  {date:'2026-06-07',venue:'Scale House Brewery',artist:'Delta Mike Shaw',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-08',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-08',venue:'Lucky Hare Brewing',artist:'Open Mic w/ Mark Maynard',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-10',venue:'Scale House Brewery',artist:'Tate Williams',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-10',venue:'Lucky Hare Brewing',artist:'The Garlic Band Duo',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-11',venue:'Two Goats Brewing',artist:'Gerard Burke',time:'5–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-11',venue:'Scale House Brewery',artist:'Hector Open Mic',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-11',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-06-12',venue:'Wagner Vineyards',artist:'Doug & Eamonn Hubert',time:'5 PM (music @ 6:30)',url:'https://www.wagnervineyards.com'},
+  {date:'2026-06-12',venue:'Hazlitt 1852 Vineyards',artist:'Stratcat Willie & the Strays',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-12',venue:'Solera Taphouse',artist:'Quona Hudson',time:'6–9 PM',url:'https://www.solerataphouse.com'},
+  {date:'2026-06-12',venue:'Grist Iron Brewing',artist:'Drew Kiddoo & The Blackouts',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-12',venue:'Two Goats Brewing',artist:'Kidbess & the Magic Ring',time:'6–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-12',venue:'Scale House Brewery',artist:'Ashley Marquez',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-12',venue:'Lucky Hare Brewing',artist:'The Sweats',time:'5–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-13',venue:'Either Oar',artist:'Bobby Rowe',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-06-13',venue:'Grist Iron Brewing',artist:'Public Water Supply',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-13',venue:'Two Goats Brewing',artist:'Stratcat Willie & the Strays',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-13',venue:'Scale House Brewery',artist:'Miller & The Other Sinners',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-14',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-14',venue:'Grist Iron Brewing',artist:'Pat Kane',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-14',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-06-14',venue:'Hazlitt 1852 Vineyards',artist:'Hi-Beams',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-14',venue:'Two Goats Brewing',artist:'Derek Kretzer',time:'4–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-14',venue:'Scale House Brewery',artist:'Freight',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-15',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-15',venue:'Lucky Hare Brewing',artist:'Open Mic w/ Mark Maynard',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-17',venue:'Scale House Brewery',artist:'Tremayne Harer',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-17',venue:'Lucky Hare Brewing',artist:'Cisco',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-18',venue:'Scale House Brewery',artist:'Hector Open Mic',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-18',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-06-19',venue:'Wagner Vineyards',artist:'FAR Trio',time:'5 PM (music @ 6:30)',url:'https://www.wagnervineyards.com'},
+  {date:'2026-06-19',venue:'Hazlitt 1852 Vineyards',artist:'The Gabe Stillman Band',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-19',venue:'Scale House Brewery',artist:'Hazmat Trio',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-20',venue:'Scale House Brewery',artist:'Bluegrass Alley',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-21',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-21',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-06-21',venue:'Hazlitt 1852 Vineyards',artist:'Bobby Rowe',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-21',venue:'Scale House Brewery',artist:'Mudhoppers',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-22',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-22',venue:'Lucky Hare Brewing',artist:'Open Mic w/ Mark Maynard',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-24',venue:'Scale House Brewery',artist:'Bobby Rowe',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-24',venue:'Lucky Hare Brewing',artist:'Spuds and Tagget',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-25',venue:'Scale House Brewery',artist:'PA Line',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-25',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-06-26',venue:'Wagner Vineyards',artist:'Bad JuJu',time:'5 PM (music @ 6:30)',url:'https://www.wagnervineyards.com'},
+  {date:'2026-06-26',venue:'Hazlitt 1852 Vineyards',artist:'Dane Hendrix & the Hangdog Saints',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-26',venue:'Scale House Brewery',artist:'Scott Adams & Friends',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-26',venue:'Lucky Hare Brewing',artist:'Jasmine Caine Acoustic',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+  {date:'2026-06-27',venue:'Either Oar',artist:'Rich Hancy',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-06-27',venue:'Scale House Brewery',artist:'Ragged Sole',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-28',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-28',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-06-28',venue:'Hazlitt 1852 Vineyards',artist:'Kevin Ludwig',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-06-28',venue:'Scale House Brewery',artist:'Fresh Vintage',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-06-29',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-06-29',venue:'Lucky Hare Brewing',artist:'Open Mic w/ Mark Maynard',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
+
+  // === ADDITIONAL GRIST IRON JUNE ===
+  {date:'2026-06-16',venue:'Grist Iron Brewing',artist:'Loveday & The Soiree',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-19',venue:'Grist Iron Brewing',artist:'The Decades Band',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-20',venue:'Grist Iron Brewing',artist:'The Pin Drops',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-21',venue:'Grist Iron Brewing',artist:'The Mystic Twangers',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-23',venue:'Grist Iron Brewing',artist:'Dave Gates',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-25',venue:'Grist Iron Brewing',artist:'FAR Trio',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-26',venue:'Grist Iron Brewing',artist:'StratCat Willie & The Strays',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-27',venue:'Grist Iron Brewing',artist:'City Limits',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-28',venue:'Grist Iron Brewing',artist:'Johnny Bauer Duo',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-30',venue:'Grist Iron Brewing',artist:'Whiskey Brave',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  // === GRIST IRON JULY ===
+  {date:'2026-07-03',venue:'Grist Iron Brewing',artist:'Meg Williams and Travis Bowlin',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-04',venue:'Grist Iron Brewing',artist:"The X'Plozionz!",time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-07',venue:'Grist Iron Brewing',artist:'Slim and Red',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-10',venue:'Grist Iron Brewing',artist:'Kactus Juice',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-12',venue:'Grist Iron Brewing',artist:'The Sweats',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-14',venue:'Grist Iron Brewing',artist:'Madelyn Rose',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-17',venue:'Grist Iron Brewing',artist:'Bad Alibi',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-18',venue:'Grist Iron Brewing',artist:'90 Proof',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-19',venue:'Grist Iron Brewing',artist:'Pat Kane',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-21',venue:'Grist Iron Brewing',artist:'Payton Clark',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-23',venue:'Grist Iron Brewing',artist:'Travis Durfee',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-24',venue:'Grist Iron Brewing',artist:'The Soul Benders',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-25',venue:'Grist Iron Brewing',artist:'The Pin Drops',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-26',venue:'Grist Iron Brewing',artist:'FAR Trio',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-28',venue:'Grist Iron Brewing',artist:'The Smoking Loons',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-07-31',venue:'Grist Iron Brewing',artist:'City Limits',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  // === TWO GOATS JUNE (additional) ===
+  {date:'2026-06-18',venue:'Two Goats Brewing',artist:'Marjorie Kelting',time:'5–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-19',venue:'Two Goats Brewing',artist:'St. Vith',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-20',venue:'Two Goats Brewing',artist:'Front and Main',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-21',venue:'Two Goats Brewing',artist:'Far Trio',time:'4–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-25',venue:'Two Goats Brewing',artist:'Benny & the Mix',time:'5–7 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-26',venue:'Two Goats Brewing',artist:'Cayla & the Coy Dogs',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  {date:'2026-06-27',venue:'Two Goats Brewing',artist:'Dart Brothers',time:'6–9 PM',url:'https://www.twogoatsbrewing.com'},
+  // === SOLERA TAPHOUSE (additional) ===
+  {date:'2026-06-19',venue:'Solera Taphouse',artist:'Horse Stories Trio',time:'6–9 PM',url:'https://www.solerataphouse.com'},
+  {date:'2026-06-26',venue:'Solera Taphouse',artist:'The Blues Fugitives',time:'6–9 PM',url:'https://www.solerataphouse.com'},
+  // === DAMIANI CELLARS — Bocce Bollicine & Blues (Wednesdays Jul-Aug) ===
+  {date:'2026-07-01',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-07-08',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-07-15',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-07-22',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-07-29',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-08-05',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-08-12',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-08-19',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-08-26',venue:'Damiani Cellars',artist:'Bocce, Bollicine & Blues',time:'5:30–8 PM',url:'https://www.damianiwinecellars.com'},
+  {date:'2026-07-01',venue:'Scale House Brewery',artist:'Erin Fagan',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-02',venue:'Scale House Brewery',artist:'Meg Williams',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-02',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-07-03',venue:'Hazlitt 1852 Vineyards',artist:'Kilrush',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-03',venue:'Scale House Brewery',artist:'Bob Roberts Calamity & Metasequoia',time:'5–10 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-04',venue:'Either Oar',artist:'Rich Hancy',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-07-04',venue:'Scale House Brewery',artist:'Brian Hughes',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-05',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-05',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-07-05',venue:'Hazlitt 1852 Vineyards',artist:'Evan Dillion',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-05',venue:'Scale House Brewery',artist:'Qwister',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-06',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-08',venue:'Scale House Brewery',artist:'River Lynch',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-09',venue:'Scale House Brewery',artist:'Patrick Young',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-09',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-07-10',venue:'Hazlitt 1852 Vineyards',artist:'Telephone Party',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-10',venue:'Scale House Brewery',artist:'Dusty Bottle Band',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-11',venue:'Either Oar',artist:'Nick Giovannini',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-07-11',venue:'Scale House Brewery',artist:'The Leaps',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-12',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-12',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-07-12',venue:'Hazlitt 1852 Vineyards',artist:'Brian Hughes',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-12',venue:'Scale House Brewery',artist:'Miller & The Other Sinners and FAR Trio',time:'5–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-13',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-15',venue:'Scale House Brewery',artist:'Tremayne Harer',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-16',venue:'Scale House Brewery',artist:'Oliver Burdo',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-16',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-07-17',venue:'Hazlitt 1852 Vineyards',artist:'The Roll the Dice Band',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-17',venue:'Scale House Brewery',artist:'C4',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-18',venue:'Scale House Brewery',artist:'Jaimie Lee',time:'5–8 PM',url:'https://www.scalehousebrews.com'},
+  {date:'2026-07-19',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-19',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-07-19',venue:'Hazlitt 1852 Vineyards',artist:'Logan Route',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-20',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-24',venue:'Hazlitt 1852 Vineyards',artist:'Miller and The Other Sinners',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-24',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-07-26',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-26',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-07-26',venue:'Hazlitt 1852 Vineyards',artist:'Tremayne Harer Acoustic',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-27',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-07-31',venue:'Hazlitt 1852 Vineyards',artist:'The Junior Rich Project',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-07-31',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-08-02',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-02',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-08-02',venue:'Hazlitt 1852 Vineyards',artist:'Delta Mike',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-03',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-07',venue:'Hazlitt 1852 Vineyards',artist:"Betty's Ghost",time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-07',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-08-08',venue:'Either Oar',artist:'Rich Hancy',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-08-09',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-09',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-08-09',venue:'Hazlitt 1852 Vineyards',artist:'The Cartwrights',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-10',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-14',venue:'Hazlitt 1852 Vineyards',artist:'Cass and The Bailout Crew',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-14',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-08-15',venue:'Either Oar',artist:'Nick Giovannini',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-08-16',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-16',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-08-16',venue:'Hazlitt 1852 Vineyards',artist:'Payton Clark',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-17',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-21',venue:'Hazlitt 1852 Vineyards',artist:'Bad Bear',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-21',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-08-23',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-23',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-08-23',venue:'Hazlitt 1852 Vineyards',artist:'Two Horse Johnson',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-24',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-28',venue:'Hazlitt 1852 Vineyards',artist:'City Limits',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-28',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
+  {date:'2026-08-30',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-08-30',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-08-30',venue:'Hazlitt 1852 Vineyards',artist:'Fresh Vintage',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-08-31',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-04',venue:'Hazlitt 1852 Vineyards',artist:'Skadattle',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-05',venue:'Either Oar',artist:'Kenny Ende',time:'1–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-09-06',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-06',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-09-06',venue:'Hazlitt 1852 Vineyards',artist:'Clark Jackson',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-07',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-11',venue:'Hazlitt 1852 Vineyards',artist:'Rust',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-13',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-13',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-09-13',venue:'Hazlitt 1852 Vineyards',artist:'Mike & Max Duo',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-14',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-18',venue:'Hazlitt 1852 Vineyards',artist:'Delta Mike Shaw Band',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-20',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-20',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-09-20',venue:'Hazlitt 1852 Vineyards',artist:'Steve Piotrowski',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-21',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-25',venue:'Hazlitt 1852 Vineyards',artist:'YETSU',time:'5:30–8:30 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-26',venue:'Either Oar',artist:'Rich Hancy',time:'2–4 PM',url:'https://www.eitheroar.com'},
+  {date:'2026-09-27',venue:'Rasta Ranch Vineyards',artist:'Sunday Sessions',time:'2–5 PM',url:'https://www.rastaranchvineyards.com'},
+  {date:'2026-09-27',venue:'Idol Ridge Winery',artist:'Sunday Songs on the Ridge',time:'1:30–4:30 PM • Free',url:'https://www.idolridge.com'},
+  {date:'2026-09-27',venue:'Hazlitt 1852 Vineyards',artist:'Tink Bennett',time:'2–5 PM',url:'https://www.hazlitt1852.com'},
+  {date:'2026-09-28',venue:'Rasta Ranch Vineyards',artist:'Monday Night Blues — Brett Beardslee',time:'5–8 PM',url:'https://www.rastaranchvineyards.com'},
+];
+
+const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
+
+function getMonday(d){const date=new Date(d);const day=date.getDay();const diff=day===0?-6:1-day;date.setDate(date.getDate()+diff);return date}
+function fmtDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function weekLabel(mon){const sun=new Date(mon);sun.setDate(sun.getDate()+6);const m1=MONTH_NAMES[mon.getMonth()],m2=MONTH_NAMES[sun.getMonth()];return m1===m2?`${m1} ${mon.getDate()}–${sun.getDate()}`:`${m1} ${mon.getDate()} – ${m2} ${sun.getDate()}`}
+
+function logoEl(venue){
+  const L=LOGOS[venue];
+  if(!L) return `<div class="logo-initials" style="background:#3a3a3a;color:#f5deb3">${venue.charAt(0)}</div>`;
+  if(L.url){
+    const fb=`this.parentElement.outerHTML='<div class=\\'logo-initials\\' style=\\'background:${L.bg};color:${L.fg}\\'>${L.abbr}</div>'`;
+    return `<div class="logo-box" style="background:${L.bg}"><img src="${L.url}" alt="${venue}" loading="lazy" onerror="${fb}"></div>`;
+  }
+  return `<div class="logo-initials" style="background:${L.bg};color:${L.fg}">${L.abbr}</div>`;
+}
+
+function buildPage(){
+  const today=new Date();today.setHours(0,0,0,0);
+  const currentMonday=getMonday(today);
+  const weeks={};
+  EVENTS.forEach(e=>{
+    const d=fmtDate(e.date);
+    const mon=getMonday(d);
+    const key=mon.toISOString().split('T')[0];
+    if(!weeks[key])weeks[key]={monday:mon,events:[]};
+    weeks[key].events.push({...e,dateObj:d});
+  });
+  const sortedWeeks=Object.keys(weeks).sort();
+  const container=document.getElementById('weeks-container');
+  sortedWeeks.forEach(key=>{
+    const week=weeks[key];
+    const isPast=week.monday<currentMonday;
+    const isCurrent=week.monday.getTime()===currentMonday.getTime();
+    const label=weekLabel(week.monday);
+    const section=document.createElement('div');
+    section.className='week-section'+(isPast?' past-section':'');
+    if(isPast)section.style.display='none';
+    const badge=isCurrent?'<span class="week-badge">This Week</span>':'';
+    const tClass=`week-toggle${isCurrent?' current':''}${isCurrent?' open':''}`;
+    section.innerHTML=`<button class="${tClass}" onclick="toggleWeek(this)"><span>Week of ${label}</span><span style="display:flex;align-items:center;gap:8px">${badge}<span class="chevron">▾</span></span></button><div class="week-content${isCurrent?' open':''}"><div class="days-grid" id="grid-${key}"></div></div>`;
+    container.appendChild(section);
+    const byDay={};
+    week.events.forEach(e=>{if(!byDay[e.date])byDay[e.date]=[];byDay[e.date].push(e)});
+    const grid=section.querySelector(`#grid-${key}`);
+    Object.keys(byDay).sort().forEach(dk=>{
+      const d=fmtDate(dk);
+      const card=document.createElement('div');
+      card.className='day-card';
+      const evHtml=byDay[dk].map(e=>`<div class="event-item">${logoEl(e.venue)}<div class="event-info"><div class="event-venue"><a href="${e.url}" target="_blank">${e.venue}</a></div><div class="event-artist">${e.artist}</div><div class="event-time">${e.time}</div></div><a class="event-link" href="${e.url}" target="_blank">→</a></div>`).join('');
+      card.innerHTML=`<div class="day-header"><span class="day-name">${DAY_NAMES[d.getDay()]}</span><span class="day-date-lbl">${MONTH_NAMES[d.getMonth()]} ${d.getDate()}</span></div><div class="events-list">${evHtml}</div>`;
+      grid.appendChild(card);
+    });
+  });
+}
+
+function toggleWeek(btn){const c=btn.nextElementSibling;const o=c.classList.contains('open');c.classList.toggle('open',!o);btn.classList.toggle('open',!o)}
+let pastShown=false;
+function togglePast(){pastShown=!pastShown;document.querySelectorAll('.past-section').forEach(s=>s.style.display=pastShown?'block':'none');document.getElementById('pastBtn').textContent=pastShown?'▾ Hide past weeks':'▸ Show past weeks'}
+buildPage();
+</script>
+</body>
+</html>
