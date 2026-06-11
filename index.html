@@ -52,6 +52,14 @@
   @media(max-width:600px){.header-title{font-size:36px}.days-grid{grid-template-columns:1fr}}
 </style>
 </head>
+<script>
+function postHeight() {
+  parent.postMessage({type: 'musicWidgetHeight',
+    height: document.documentElement.scrollHeight}, '*');
+}
+new ResizeObserver(postHeight).observe(document.body);
+window.addEventListener('load', postHeight);
+</script>
 <body>
 <div class="widget">
   <div class="header">
