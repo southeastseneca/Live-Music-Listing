@@ -52,14 +52,6 @@
   @media(max-width:600px){.header-title{font-size:36px}.days-grid{grid-template-columns:1fr}}
 </style>
 </head>
-<script>
-function postHeight() {
-  parent.postMessage({type: 'musicWidgetHeight',
-    height: document.documentElement.scrollHeight}, '*');
-}
-new ResizeObserver(postHeight).observe(document.body);
-window.addEventListener('load', postHeight);
-</script>
 <body>
 <div class="widget">
   <div class="header">
@@ -406,6 +398,13 @@ function toggleWeek(btn){const c=btn.nextElementSibling;const o=c.classList.cont
 let pastShown=false;
 function togglePast(){pastShown=!pastShown;document.querySelectorAll('.past-section').forEach(s=>s.style.display=pastShown?'block':'none');document.getElementById('pastBtn').textContent=pastShown?'▾ Hide past weeks':'▸ Show past weeks'}
 buildPage();
+</script>
+<script>
+function postHeight() {
+  parent.postMessage({type:'musicWidgetHeight', height: document.body.scrollHeight}, '*');
+}
+new ResizeObserver(postHeight).observe(document.body);
+window.addEventListener('load', postHeight);
 </script>
 </body>
 </html>
