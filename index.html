@@ -86,6 +86,7 @@ const LOGOS = {
   "Hillick & Hobbs":       {bg:"#f5f5f0",fg:"#1a1a1a",abbr:"HH",url:"https://www.hillickandhobbs.com/wp-content/uploads/2025/03/hillick-hobbs-logo.png"},
   "Leidenfrost Vineyards": {bg:"#1a1a1a",fg:"#fff",abbr:"LV"},
   "Osmote Wines":          {bg:"#1a1a1a",fg:"#fff",abbr:"OS"},
+  "Sawmill Creek":         {bg:"#2d5a27",fg:"#fff",abbr:"SM"},
 };
 
 const EVENTS = [
@@ -145,6 +146,7 @@ const EVENTS = [
   {date:'2026-06-17',venue:'Scale House Brewery',artist:'Tremayne Harer',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
   {date:'2026-06-17',venue:'Lucky Hare Brewing',artist:'Cisco',time:'6–8 PM',url:'https://www.luckyharebrewing.com'},
   {date:'2026-06-18',venue:'Grist Iron Brewing',artist:'Small Kings',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-18',venue:'Atwater Vineyards',artist:'Rev Ezra',time:'6–9 PM',url:'https://www.atwatervineyards.com'},
   {date:'2026-06-18',venue:'Scale House Brewery',artist:'Hector Open Mic',time:'6–9 PM',url:'https://www.scalehousebrews.com'},
   {date:'2026-06-18',venue:'Stonecat Café',artist:'Dave Richman',time:'6–8 PM',url:'https://www.stonecatcafe.com'},
   {date:'2026-06-19',venue:'Wagner Vineyards',artist:'FAR Trio',time:'5 PM (music @ 6:30)',url:'https://www.wagnervineyards.com'},
@@ -177,6 +179,7 @@ const EVENTS = [
   // === ADDITIONAL GRIST IRON JUNE ===
   {date:'2026-06-16',venue:'Grist Iron Brewing',artist:'Loveday & The Soiree',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
   {date:'2026-06-19',venue:'Grist Iron Brewing',artist:'The Decades Band',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
+  {date:'2026-06-19',venue:'Sawmill Creek',artist:'Solstice Party',time:'6–9 PM',url:'https://www.sawmillcreekestate.com'},
   {date:'2026-06-20',venue:'Grist Iron Brewing',artist:'The Pin Drops',time:'6–9 PM',url:'https://www.gristironbrewing.com'},
   {date:'2026-06-21',venue:'Grist Iron Brewing',artist:'The Mystic Twangers',time:'1–4 PM',url:'https://www.gristironbrewing.com'},
   {date:'2026-06-23',venue:'Grist Iron Brewing',artist:'Dave Gates',time:'5–8 PM',url:'https://www.gristironbrewing.com'},
@@ -398,13 +401,6 @@ function toggleWeek(btn){const c=btn.nextElementSibling;const o=c.classList.cont
 let pastShown=false;
 function togglePast(){pastShown=!pastShown;document.querySelectorAll('.past-section').forEach(s=>s.style.display=pastShown?'block':'none');document.getElementById('pastBtn').textContent=pastShown?'▾ Hide past weeks':'▸ Show past weeks'}
 buildPage();
-</script>
-<script>
-function postHeight() {
-  parent.postMessage({type:'musicWidgetHeight', height: document.body.scrollHeight}, '*');
-}
-new ResizeObserver(postHeight).observe(document.body);
-window.addEventListener('load', postHeight);
 </script>
 </body>
 </html>
