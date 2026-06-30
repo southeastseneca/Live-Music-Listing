@@ -33,4 +33,11 @@ jobs:
         run: |
           git config user.name  "SES Music Bot"
           git config user.email "actions@github.com"
-          git remote set-url origin https://x-access-token:${{ secrets.MUSIC_UPDATE_TOKEN
+          git remote set-url origin https://x-access-token:${{ secrets.MUSIC_UPDATE_TOKEN }}@github.com/${{ github.repository }}.git
+          git add events.json
+          if git diff --staged --quiet; then
+            echo "No new events found — nothing to commit."
+          else
+            git commit -m "Auto-update live music $(date +%Y-%m-%d)"
+            git push
+          fi
