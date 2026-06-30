@@ -217,6 +217,214 @@ def fetch_ses_events():
     return all_events
 
 
+def fetch_venue_site_events(base_url, venue_name, venue_url):
+    """Scrape a venue's own Squarespace events page (same format as SES)."""
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; SES-Music-Bot/1.0)"}
+    url = base_url
+    all_events = []
+    seen = set()
+
+    while url:
+        print(f"  Fetching {url}")
+        resp = requests.get(url, headers=headers, timeout=30)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+
+        articles = (
+            soup.select("article.eventlist-event") or
+            soup.select(".eventlist-event") or
+            soup.select("[class*='eventlist-event']")
+        )
+        print(f"  Found {len(articles)} events")
+
+        for art in articles:
+            # Date
+            time_el = art.select_one("time[datetime]")
+            if not time_el:
+                continue
+            dt_raw = time_el.get("datetime", "")[:10]
+            if not re.match(r"\d{4}-\d{2}-\d{2}", dt_raw):
+                continue
+
+            # Title = artist
+            title_el = art.select_one(
+                "h1.eventlist-title a, h1.eventlist-title, "
+                ".eventlist-event--title a, .eventlist-event--title"
+            )
+            if not title_el:
+                continue
+            artist = title_el.get_text(strip=True)
+            # Strip "@ Venue Name" or "at Venue Name" suffix if present
+            artist = re.sub(rf"\s*[@at]+\s*{re.escape(venue_name)}\s*$", "", artist, flags=re.I).strip()
+
+            # Time
+            time_text = ""
+            for sel in [".eventlist-meta-time", "[class*='event-time']", ".eventlist-meta-item--time"]:
+                t = art.select_one(sel)
+                if t:
+                    time_text = t.get_text(strip=True)
+                    break
+            if not time_text:
+                for li in art.select("li"):
+                    txt = li.get_text(strip=True)
+                    if re.search(r"\d+:\d+\s*(AM|PM)", txt, re.I):
+                        time_text = txt
+                        break
+
+            formatted_time = time_text
+            m = re.search(r"(\d+:\d+\s*(?:AM|PM))\s*[–\-]?\s*(\d+:\d+\s*(?:AM|PM))", time_text, re.I)
+            if m:
+                formatted_time = format_time_range(m.group(1), m.group(2))
+
+            key = f"{dt_raw}|{artist[:30]}"
+            if key not in seen:
+                seen.add(key)
+                all_events.append({
+                    "date": dt_raw,
+                    "venue": venue_name,
+                    "artist": artist,
+                    "time": formatted_time or "TBD",
+                    "url": venue_url,
+                })
+
+        # Pagination
+        next_a = soup.select_one(
+            "a.eventlist-button-loadmore, .eventlist--pagination .next a, [rel='next']"
+        )
+        url = None
+        if next_a and next_a.get("href"):
+            href = next_a["href"]
+            domain = "/".join(base_url.split("/")[:3])
+            url = (domain + href if href.startswith("/") else href)
+
+    return all_events
+
+
+def fetch_damiani_events():
+    """Scrape Damiani Wine Cellars events (WordPress/The Events Calendar format)."""
+    headers = {"User-Agent": "Mozilla/5.0 (compatible; SES-Music-Bot/1.0)"}
+    all_events = []
+
+    # Try WordPress REST API first — much cleaner than scraping HTML
+    try:
+        api_url = "https://damianiwinecellars.com/wp-json/tribe/events/v1/events?per_page=50&status=publish"
+        resp = requests.get(api_url, headers=headers, timeout=30)
+        if resp.status_code == 200:
+            data = resp.json()
+            events_list = data.get("events", [])
+            print(f"  Found {len(events_list)} events via Damiani API")
+            for ev in events_list:
+                title = re.sub(r'<[^>]+>', '', ev.get("title", "")).strip()
+                # Skip non-music events
+                if not any(kw in title.lower() for kw in ["music", "blues", "jazz", "bocce", "bollicine", "band", "live"]):
+                    continue
+                start = ev.get("start_date", "")[:10]  # "2026-07-01"
+                time_start = ev.get("start_date", "")[11:16]  # "17:30"
+                time_end = ev.get("end_date", "")[11:16]      # "20:00"
+                if time_start and time_end:
+                    def fmt24(t):
+                        h, m = int(t[:2]), int(t[3:])
+                        suffix = "AM" if h < 12 else "PM"
+                        h = h % 12 or 12
+                        return f"{h}" if m == 0 else f"{h}:{m:02d}"
+                    s_suffix = "AM" if int(time_start[:2]) < 12 else "PM"
+                    e_suffix = "AM" if int(time_end[:2]) < 12 else "PM"
+                    s = fmt24(time_start)
+                    e = fmt24(time_end)
+                    if s_suffix == e_suffix:
+                        time_str = f"{s}–{e} {s_suffix}"
+                    else:
+                        time_str = f"{s} {s_suffix}–{e} {e_suffix}"
+                else:
+                    time_str = "TBD"
+                if start:
+                    all_events.append({
+                        "date": start,
+                        "venue": "Damiani Cellars",
+                        "artist": title,
+                        "time": time_str,
+                        "url": "https://www.damianiwinecellars.com",
+                    })
+            return all_events
+    except Exception:
+        pass  # Fall through to HTML scraping
+
+    # Fallback: scrape HTML events page
+    print("  Damiani API unavailable, falling back to HTML scrape")
+    resp = requests.get("https://damianiwinecellars.com/events/", headers=headers, timeout=30)
+    resp.raise_for_status()
+    soup = BeautifulSoup(resp.text, "html.parser")
+
+    month_names = {"Jan":1,"Feb":2,"Mar":3,"Apr":4,"May":5,"Jun":6,
+                   "Jul":7,"Aug":8,"Sep":9,"Oct":10,"Nov":11,"Dec":12}
+
+    for article in soup.select("article.type-tribe_events, .tribe-events-calendar-list__event, article"):
+        title_el = article.select_one("h3 a, h2 a, .tribe-event-url")
+        if not title_el:
+            continue
+        title = title_el.get_text(strip=True)
+        if not any(kw in title.lower() for kw in ["music","blues","jazz","bocce","bollicine","band","live"]):
+            continue
+
+        # Date from abbr or time element
+        date_str = ""
+        abbr = article.select_one("abbr[title]")
+        if abbr:
+            date_str = abbr.get("title", "")[:10]
+        if not date_str:
+            time_el = article.select_one("time[datetime]")
+            if time_el:
+                date_str = time_el.get("datetime", "")[:10]
+        if not date_str:
+            # Try parsing "DD Mon" text pattern
+            text = article.get_text()
+            m = re.search(r'(\d{1,2})\s+(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)', text)
+            if m:
+                day, mon = int(m.group(1)), month_names[m.group(2)]
+                year = date.today().year
+                date_str = f"{year}-{mon:02d}-{day:02d}"
+        if not date_str:
+            continue
+
+        # Time
+        time_text = ""
+        for sel in [".tribe-event-schedule-details", ".tribe-events-schedule", "[class*='time']"]:
+            t = article.select_one(sel)
+            if t:
+                time_text = t.get_text(strip=True)
+                break
+        if not time_text:
+            m = re.search(r'\d+:\d+\s*(am|pm)\s*[-–]\s*\d+:\d+\s*(am|pm)', article.get_text(), re.I)
+            if m:
+                time_text = m.group(0)
+
+        all_events.append({
+            "date": date_str,
+            "venue": "Damiani Cellars",
+            "artist": title,
+            "time": time_text or "5:30–8 PM",
+            "url": "https://www.damianiwinecellars.com",
+        })
+
+    print(f"  Found {len(all_events)} Damiani events via HTML")
+    return all_events
+
+
+# Additional venue sites to scrape (not always listed on SES)
+EXTRA_VENUES = [
+    {
+        "url": "https://www.gristironbrewing.com/events-live-music",
+        "name": "Grist Iron Brewing",
+        "site": "https://www.gristironbrewing.com",
+    },
+    {
+        "url": "https://twogoatsbrewing.com/music-events",
+        "name": "Two Goats Brewing",
+        "site": "https://www.twogoatsbrewing.com",
+    },
+]
+
+
 def event_key(e):
     return (e["date"], e["venue"].lower().strip(), e["artist"][:25].lower().strip())
 
@@ -236,18 +444,43 @@ def main():
 
     existing_keys = {event_key(e) for e in existing}
 
-    # Fetch new events from SES website
+    all_scraped = []
+
+    # Fetch from SES aggregator
     print("\nScraping SES events page...")
     try:
-        scraped = fetch_ses_events()
-        print(f"Scraped {len(scraped)} events total\n")
+        ses_events = fetch_ses_events()
+        print(f"Scraped {len(ses_events)} events from SES\n")
+        all_scraped.extend(ses_events)
     except Exception as exc:
         print(f"ERROR fetching SES page: {exc}")
+
+    # Fetch from individual venue sites
+    for v in EXTRA_VENUES:
+        print(f"\nScraping {v['name']} events page...")
+        try:
+            venue_events = fetch_venue_site_events(v["url"], v["name"], v["site"])
+            print(f"Scraped {len(venue_events)} events from {v['name']}\n")
+            all_scraped.extend(venue_events)
+        except Exception as exc:
+            print(f"ERROR fetching {v['name']} page: {exc}")
+
+    # Fetch from Damiani (WordPress format — separate parser)
+    print("\nScraping Damiani Wine Cellars events...")
+    try:
+        damiani_events = fetch_damiani_events()
+        print(f"Scraped {len(damiani_events)} events from Damiani\n")
+        all_scraped.extend(damiani_events)
+    except Exception as exc:
+        print(f"ERROR fetching Damiani events: {exc}")
+
+    if not all_scraped:
+        print("No events scraped from any source — aborting to avoid data loss.")
         sys.exit(1)
 
     # Merge: add new future events not already present
     added = 0
-    for ev in scraped:
+    for ev in all_scraped:
         if ev["date"] < today:
             continue  # skip past events
         k = event_key(ev)
