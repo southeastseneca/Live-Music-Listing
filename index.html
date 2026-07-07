@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -90,24 +91,30 @@ const LOGOS = {
   "Osmote Wines":          {bg:"#1a1a1a",fg:"#fff",abbr:"OS"},
   "Sawmill Creek":         {bg:"#2d5a27",fg:"#fff",abbr:"SM"},
 };
-
 const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
-
 function getMonday(d){const date=new Date(d);const day=date.getDay();const diff=day===0?-6:1-day;date.setDate(date.getDate()+diff);return date}
 function fmtDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
 function weekLabel(mon){const sun=new Date(mon);sun.setDate(sun.getDate()+6);const m1=MONTH_NAMES[mon.getMonth()],m2=MONTH_NAMES[sun.getMonth()];return m1===m2?`${m1} ${mon.getDate()}–${sun.getDate()}`:`${m1} ${mon.getDate()} – ${m2} ${sun.getDate()}`}
-
-function logoEl(venue){
+function initialsHtml(venue){
   const L=LOGOS[venue];
   if(!L) return `<div class="logo-initials" style="background:#3a3a3a;color:#f5deb3">${venue.charAt(0)}</div>`;
-  if(L.url){
-    const fb=`this.parentElement.outerHTML='<div class=\\'logo-initials\\' style=\\'background:${L.bg};color:${L.fg}\\'>${L.abbr}</div>'`;
-    return `<div class="logo-box" style="background:${L.bg}"><img src="${L.url}" alt="${venue}" loading="lazy" onerror="${fb}"></div>`;
-  }
   return `<div class="logo-initials" style="background:${L.bg};color:${L.fg}">${L.abbr}</div>`;
 }
-
+function logoEl(venue){
+  const L=LOGOS[venue];
+  if(!L || !L.url) return initialsHtml(venue);
+  return `<div class="logo-box" style="background:${L.bg}" data-venue="${venue}"><img src="${L.url}" alt="${venue}" loading="lazy"></div>`;
+}
+function attachLogoFallbacks(){
+  document.querySelectorAll('.logo-box img').forEach(img=>{
+    img.addEventListener('error', function(){
+      const box=this.closest('.logo-box');
+      const venue=box.getAttribute('data-venue');
+      box.outerHTML=initialsHtml(venue);
+    }, {once:true});
+  });
+}
 function buildPage(EVENTS){
   const today=new Date();today.setHours(0,0,0,0);
   const currentMonday=getMonday(today);
@@ -146,13 +153,12 @@ function buildPage(EVENTS){
       grid.appendChild(card);
     });
   });
+  attachLogoFallbacks();
 }
-
 function toggleWeek(btn){const c=btn.nextElementSibling;const o=c.classList.contains('open');c.classList.toggle('open',!o);btn.classList.toggle('open',!o)}
 let pastShown=false;
 function togglePast(){pastShown=!pastShown;document.querySelectorAll('.past-section').forEach(s=>s.style.display=pastShown?'block':'none');document.getElementById('pastBtn').textContent=pastShown?'▾ Hide past weeks':'▸ Show past weeks'}
-
-// Load events from external JSON file (updated weekly by GitHub Action)
+// Load events from external JSON file (updated weekly by GitHub Action / scraper.py)
 fetch('events.json')
   .then(r => {
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -161,7 +167,7 @@ fetch('events.json')
   .then(events => buildPage(events))
   .catch(err => {
     document.getElementById('weeks-container').innerHTML =
-      `<div class="error">Could not load events. Please try refreshing.<br><small>${err.message}</small></div>`;
+      `<div class="error">Could not load events.json. Make sure this file is uploaded in the same folder as events.json.<br><small>${err.message}</small></div>`;
   });
 </script>
 </body>
