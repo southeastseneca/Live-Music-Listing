@@ -93,7 +93,14 @@ const LOGOS = {
 const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
 function getMonday(d){const date=new Date(d);const day=date.getDay();const diff=day===0?-6:1-day;date.setDate(date.getDate()+diff);return date}
-function fmtDate(s){const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)}
+function fmtDate(s){
+  const parts=String(s).match(/(\d{4})\D(\d{1,2})\D(\d{1,2})/);
+  if(!parts){console.warn('Skipping event with unparseable date:',s);return null}
+  const y=Number(parts[1]),m=Number(parts[2]),d=Number(parts[3]);
+  const dt=new Date(y,m-1,d);
+  if(isNaN(dt.getTime())){console.warn('Skipping event with invalid date:',s);return null}
+  return dt;
+}
 function weekLabel(mon){const sun=new Date(mon);sun.setDate(sun.getDate()+6);const m1=MONTH_NAMES[mon.getMonth()],m2=MONTH_NAMES[sun.getMonth()];return m1===m2?`${m1} ${mon.getDate()}–${sun.getDate()}`:`${m1} ${mon.getDate()} – ${m2} ${sun.getDate()}`}
 function initialsHtml(venue){
   const L=LOGOS[venue];
@@ -120,6 +127,7 @@ function buildPage(EVENTS){
   const weeks={};
   EVENTS.forEach(e=>{
     const d=fmtDate(e.date);
+    if(!d)return;
     const mon=getMonday(d);
     const key=mon.toISOString().split('T')[0];
     if(!weeks[key])weeks[key]={monday:mon,events:[]};
@@ -145,6 +153,7 @@ function buildPage(EVENTS){
     const grid=section.querySelector(`#grid-${key}`);
     Object.keys(byDay).sort().forEach(dk=>{
       const d=fmtDate(dk);
+      if(!d)return;
       const card=document.createElement('div');
       card.className='day-card';
       const evHtml=byDay[dk].map(e=>`<div class="event-item">${logoEl(e.venue)}<div class="event-info"><div class="event-venue"><a href="${e.url}" target="_blank">${e.venue}</a></div><div class="event-artist">${e.artist}</div><div class="event-time">${e.time}</div></div><a class="event-link" href="${e.url}" target="_blank">→</a></div>`).join('');
