@@ -26,5 +26,106 @@
   {"date":"2026-07-19","venue":"Two Goats Brewing","artist":"House of Sterling","time":"4–7 PM","url":"https://twogoatsbrewing.com/"},
 
   {"date":"2026-07-20","venue":"Rasta Ranch Vineyards","artist":"Monday Night Blues (Brett Beardslee)","time":"5–8 PM","url":"https://www.rastaranchvineyards.com/"},
-  {"date":"2026-07-20","venue":"Lucky Hare Brewing","artist":"Open Mic w/ Mark Maynard","time":"6–8 PM","url":"https://www.luckyharebrewing.com/"}
+  {"date":"2026-07-20","venue":"Lucky Hare Brewing","artist":"Open Mic w/ Mark Maynard","time":"6–8 PM","url":"https://www.luckyharebrewing.com/"},
+
+  {"date":"2026-07-21","venue":"Grist Iron Brewing","artist":"Payton Clark","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-07-22","venue":"Stonecat Café","artist":"The Grooves","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-07-23","venue":"Grist Iron Brewing","artist":"Travis Durfee","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-23","venue":"Stonecat Café","artist":"Dave Richman (Pasta Night)","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-07-24","venue":"Grist Iron Brewing","artist":"The Soul Benders","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-24","venue":"Wagner Vineyards","artist":"Jr Rich Project","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-07-24","venue":"Hazlitt 1852 Vineyards","artist":"Miller and The Other Sinners","time":"5:30–8:30 PM","url":"https://hazlitt1852.com/events/"},
+  {"date":"2026-07-24","venue":"Solera Taphouse","artist":"Off The Rails","time":"6–7 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-07-25","venue":"Grist Iron Brewing","artist":"The Pin Drops","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-25","venue":"Wagner Vineyards","artist":"Feed The Fire (Alta B Weekend)","time":"Evening","url":"https://wagnervineyards.com/events-calendar/alta-b-weekend/"},
+
+  {"date":"2026-07-26","venue":"Grist Iron Brewing","artist":"FAR Trio","time":"1–4 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-26","venue":"Wagner Vineyards","artist":"The Ende Brothers (Alta B Weekend)","time":"Afternoon","url":"https://wagnervineyards.com/events-calendar/alta-b-weekend/"},
+  {"date":"2026-07-26","venue":"Stonecat Café","artist":"Dave Solazzo Trio (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-07-28","venue":"Grist Iron Brewing","artist":"Whiskey Brave","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-07-30","venue":"Grist Iron Brewing","artist":"The Smoking Loons","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-30","venue":"Stonecat Café","artist":"Dave Richman (Pasta Night)","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-07-31","venue":"Grist Iron Brewing","artist":"City Limits","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-07-31","venue":"Wagner Vineyards","artist":"Hot Dogs & Gin","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-07-31","venue":"Hazlitt 1852 Vineyards","artist":"The Junior Rich Project","time":"5:30–8:30 PM","url":"https://hazlitt1852.com/events/"},
+  {"date":"2026-07-31","venue":"Solera Taphouse","artist":"Pat Carlineo and Friends","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-08-01","venue":"Grist Iron Brewing","artist":"The Decades Band","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-02","venue":"Grist Iron Brewing","artist":"Larry Childs and Night Train","time":"1–4 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-02","venue":"Wagner Vineyards","artist":"Clint Bush","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-02","venue":"Stonecat Café","artist":"Wayne Gottlieb & Harry Aceto (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-04","venue":"Grist Iron Brewing","artist":"Madelyn Rose","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-06","venue":"Grist Iron Brewing","artist":"Meg Williams","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-06","venue":"Stonecat Café","artist":"Dave Richman (Pasta Night)","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-07","venue":"Grist Iron Brewing","artist":"High Caliber","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-07","venue":"Wagner Vineyards","artist":"Dean Goble Band","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-07","venue":"Hazlitt 1852 Vineyards","artist":"Betty's Ghost","time":"5:30–8:30 PM","url":"https://hazlitt1852.com/events/"},
+  {"date":"2026-08-07","venue":"Solera Taphouse","artist":"Quona Hudson","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-08-09","venue":"Grist Iron Brewing","artist":"Pat Kane","time":"1–4 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-09","venue":"Wagner Vineyards","artist":"Cameron Markott","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-09","venue":"Stonecat Café","artist":"The TeaBurgers (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-11","venue":"Grist Iron Brewing","artist":"Gracie Yates & Brock Burton","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-12","venue":"Stonecat Café","artist":"The Grooves","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-13","venue":"Grist Iron Brewing","artist":"Frank Raponi","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-13","venue":"Stonecat Café","artist":"Dave Richman (Pasta Night)","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-14","venue":"Wagner Vineyards","artist":"The Smoking Loons","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-14","venue":"Hazlitt 1852 Vineyards","artist":"Cass and The Bailout Crew","time":"5:30–8:30 PM","url":"https://hazlitt1852.com/events/"},
+  {"date":"2026-08-14","venue":"Solera Taphouse","artist":"Amber Martin and The Fruitstand","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-08-15","venue":"Grist Iron Brewing","artist":"The Sweats","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-16","venue":"Grist Iron Brewing","artist":"The Mystic Twangers","time":"1–4 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-16","venue":"Wagner Vineyards","artist":"Michael Francis McCarthy","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-16","venue":"Stonecat Café","artist":"Maplewood Jazz Team (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-18","venue":"Grist Iron Brewing","artist":"Slim and Red","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-21","venue":"Grist Iron Brewing","artist":"Bad Alibi","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-21","venue":"Wagner Vineyards","artist":"Miller & The Other Sinners","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-21","venue":"Solera Taphouse","artist":"Steve Piotrowski","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-08-23","venue":"Wagner Vineyards","artist":"Frank Raponi","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-23","venue":"Stonecat Café","artist":"M.A.Q. (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-25","venue":"Grist Iron Brewing","artist":"Whiskey Brave","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+
+  {"date":"2026-08-27","venue":"Grist Iron Brewing","artist":"Travis Durfee","time":"5–8 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-27","venue":"Stonecat Café","artist":"Dave Richman (Pasta Night)","time":"6–8 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-08-28","venue":"Grist Iron Brewing","artist":"Feed the Fire","time":"6–9 PM","url":"https://www.gristironbrewing.com/events-live-music"},
+  {"date":"2026-08-28","venue":"Wagner Vineyards","artist":"Betty's Ghost","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-28","venue":"Solera Taphouse","artist":"Night Train","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-08-30","venue":"Wagner Vineyards","artist":"Evan Dillon","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-08-30","venue":"Stonecat Café","artist":"Dave Richman Trio (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-09-04","venue":"Wagner Vineyards","artist":"Rust","time":"6:30–9:30 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-09-04","venue":"Solera Taphouse","artist":"The Pin Drops","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-09-06","venue":"Wagner Vineyards","artist":"Rachel Beverly","time":"1–4 PM","url":"https://wagnervineyards.com/events-calendar/live-music/"},
+  {"date":"2026-09-06","venue":"Stonecat Café","artist":"Dave Solazzo Trio (Jazz Brunch)","time":"10:30 AM–1:30 PM","url":"https://www.stonecatcafe.com/music-events"},
+
+  {"date":"2026-09-11","venue":"Solera Taphouse","artist":"Trevor Stribing","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-09-13","venue":"Two Goats Brewing","artist":"GoGone","time":"6–9 PM","url":"https://twogoatsbrewing.com/music-events"},
+
+  {"date":"2026-09-18","venue":"Solera Taphouse","artist":"Horse Stories Trio","time":"6–9 PM","url":"https://www.solerataphouse.com/events"},
+
+  {"date":"2026-09-26","venue":"Solera Taphouse","artist":"Oktoberfest 2026 (live music, lawn games, stein-holding contest)","time":"12–10 PM","url":"https://www.solerataphouse.com/events"}
 ]
