@@ -89,6 +89,8 @@ const LOGOS = {
   "Leidenfrost Vineyards": {bg:"#1a1a1a",fg:"#fff",abbr:"LV"},
   "Osmote Wines":          {bg:"#1a1a1a",fg:"#fff",abbr:"OS"},
   "Sawmill Creek":         {bg:"#2d5a27",fg:"#fff",abbr:"SM"},
+  "Ria's Wines":           {bg:"#6b4423",fg:"#f5deb3",abbr:"RW"},
+  "Red Newt Cellars":      {bg:"#8a2020",fg:"#f5deb3",abbr:"RN"},
 };
 const DAY_NAMES=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
 const MONTH_NAMES=['January','February','March','April','May','June','July','August','September','October','November','December'];
@@ -166,17 +168,181 @@ function buildPage(EVENTS){
 function toggleWeek(btn){const c=btn.nextElementSibling;const o=c.classList.contains('open');c.classList.toggle('open',!o);btn.classList.toggle('open',!o)}
 let pastShown=false;
 function togglePast(){pastShown=!pastShown;document.querySelectorAll('.past-section').forEach(s=>s.style.display=pastShown?'block':'none');document.getElementById('pastBtn').textContent=pastShown?'▾ Hide past weeks':'▸ Show past weeks'}
-// Load events from external JSON file (updated weekly by GitHub Action / scraper.py)
-fetch('events.json')
-  .then(r => {
-    if (!r.ok) throw new Error(`HTTP ${r.status}`);
-    return r.json();
-  })
-  .then(events => buildPage(events))
-  .catch(err => {
-    document.getElementById('weeks-container').innerHTML =
-      `<div class="error">Could not load events.json. Make sure this file is uploaded in the same folder as events.json.<br><small>${err.message}</small></div>`;
-  });
+// Events are embedded directly (Cowork artifacts must be self-contained, so this
+// no longer fetches an external events.json). Each Monday, APPEND new week's
+// events to this array rather than replacing it — older weeks auto-collapse
+// under "Show past weeks."
+const EVENTS = [
+  // Week of Jul 22–27
+  {date:"2026-07-22", venue:"Damiani Cellars", artist:"Bollicine Brothers & Food Truck", time:"5:30–8 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2026-07-22", venue:"Lucky Hare Brewing", artist:"Live Music w/ Los Fintsero", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-07-22", venue:"Stonecat Café", artist:"The Grooves", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-07-22", venue:"Scale House Brewery", artist:"Galactic Dolphin Alliance", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-23", venue:"Grist Iron Brewing", artist:"Travis Durfee", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-23", venue:"Two Goats Brewing", artist:"Oliver & Trevor", time:"5–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-23", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-07-23", venue:"Scale House Brewery", artist:"Logan Route", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-24", venue:"Hazlitt 1852 Vineyards", artist:"Miller and The Other Sinners", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-07-24", venue:"Two Goats Brewing", artist:"Far Trio", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-24", venue:"Grist Iron Brewing", artist:"The Soul Benders", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-24", venue:"Wagner Vineyards", artist:"The Junior Rich Project", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-07-24", venue:"Damiani Cellars", artist:"Brian Scherer", time:"6–8 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2026-07-24", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-07-24", venue:"Scale House Brewery", artist:"Sleeping Dogs", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-25", venue:"Two Goats Brewing", artist:"Zydeco Trail Riders", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-25", venue:"Grist Iron Brewing", artist:"The Pin Drops", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-25", venue:"Wagner Vineyards", artist:"Feed The Fire", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-07-25", venue:"Scale House Brewery", artist:"ROC Street", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-26", venue:"Stonecat Café", artist:"Dave Solazzo Trio (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-07-26", venue:"Grist Iron Brewing", artist:"FAR Trio", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-26", venue:"Wagner Vineyards", artist:"The Ende Brothers", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-07-26", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-07-26", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Mike Shaw", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-07-26", venue:"Hazlitt 1852 Vineyards", artist:"Tremayne Harer Acoustic", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-07-26", venue:"Two Goats Brewing", artist:"Go Gone", time:"4–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-26", venue:"Scale House Brewery", artist:"Dave Miller Solo Acoustic", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-27", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-07-27", venue:"Lucky Hare Brewing", artist:"Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+
+  // Week of Jul 29 – Aug 3
+  {date:"2026-07-29", venue:"Lucky Hare Brewing", artist:"Annie Ole Thyme", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-07-29", venue:"Scale House Brewery", artist:"Tate Williams", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-30", venue:"Grist Iron Brewing", artist:"The Smoking Loons", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-30", venue:"Two Goats Brewing", artist:"Mathis Haug", time:"5–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-30", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-07-30", venue:"Scale House Brewery", artist:"Strat Cat Willie Hayes & The Strays", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-07-31", venue:"Grist Iron Brewing", artist:"City Limits", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-07-31", venue:"Two Goats Brewing", artist:"Kate Hinote Trio", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-07-31", venue:"Wagner Vineyards", artist:"Hot Dogs & Gin", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-07-31", venue:"Hazlitt 1852 Vineyards", artist:"The Junior Rich Project", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-07-31", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-07-31", venue:"Scale House Brewery", artist:"Oliver Burdo & Trever Stribing", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-01", venue:"Grist Iron Brewing", artist:"The Decades Band", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-01", venue:"Ria's Wines", artist:"Night in the Vineyards (live acoustic)", time:"7–10 PM", url:"https://www.riaswines.com"},
+  {date:"2026-08-01", venue:"Scale House Brewery", artist:"Baked Falafel", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-02", venue:"Grist Iron Brewing", artist:"Larry Childs and Night Train", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-02", venue:"Two Goats Brewing", artist:"Sing Trece Band", time:"4–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-02", venue:"Wagner Vineyards", artist:"Clint Bush", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-02", venue:"Hazlitt 1852 Vineyards", artist:"Delta Mike", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-02", venue:"Stonecat Café", artist:"Wayne Gottlieb & Harry Aceto (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-02", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-08-02", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Scott Adams", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-02", venue:"Scale House Brewery", artist:"Fresh Vintage", time:"5–6 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-03", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-03", venue:"Lucky Hare Brewing", artist:"Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+
+  // Week of Aug 5–10
+  {date:"2026-08-05", venue:"Forge Cellars", artist:"Road Man Residency", time:"5–7 PM", url:"https://www.forgecellars.com/events"},
+  {date:"2026-08-05", venue:"Lucky Hare Brewing", artist:"Meg Williams", time:"5–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-05", venue:"Damiani Cellars", artist:"Bollicine Brothers & Food Truck", time:"5:30–8 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2026-08-05", venue:"Scale House Brewery", artist:"Rich Evans", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-06", venue:"Grist Iron Brewing", artist:"Meg Williams", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-06", venue:"Two Goats Brewing", artist:"Gerard Burke", time:"5–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-06", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-06", venue:"Scale House Brewery", artist:"Briz - Neil Young Tribute", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-07", venue:"Grist Iron Brewing", artist:"High Caliber", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-07", venue:"Two Goats Brewing", artist:"CC-13", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-07", venue:"Damiani Cellars", artist:"Dave Richman Jazz Trio", time:"6–8 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2026-08-07", venue:"Wagner Vineyards", artist:"Dean Goble Band", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-07", venue:"Hazlitt 1852 Vineyards", artist:"Betty's Ghost", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-07", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-08-07", venue:"Scale House Brewery", artist:"Stereopticon", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-08", venue:"Two Goats Brewing", artist:"Infrared Radiation Orchestra", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-08", venue:"Either Oar", artist:"Cast & Cords Live Music", time:"2–4 PM", url:"https://senecalakewine.com/events/"},
+  {date:"2026-08-08", venue:"Lucky Hare Brewing", artist:"Quona Hudson", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-08", venue:"Scale House Brewery", artist:"Miller & The Other Sinners", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-09", venue:"Grist Iron Brewing", artist:"Pat Kane", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-09", venue:"Two Goats Brewing", artist:"The Meg Williams Band", time:"4–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-09", venue:"Wagner Vineyards", artist:"Cameron Markott", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-09", venue:"Hazlitt 1852 Vineyards", artist:"The Cartwrights", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-09", venue:"Stonecat Café", artist:"The TeaBurgers (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-09", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-08-09", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Mike Shaw", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-09", venue:"Scale House Brewery", artist:"Rena Guinn & Joe Lule", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-10", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-10", venue:"Lucky Hare Brewing", artist:"Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+
+  // Week of Aug 12–17
+  {date:"2026-08-12", venue:"Lucky Hare Brewing", artist:"Spuds & Tagget", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-12", venue:"Stonecat Café", artist:"The Grooves", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-12", venue:"Scale House Brewery", artist:"Bobby Rowe", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-13", venue:"Grist Iron Brewing", artist:"Frank Raponi", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-13", venue:"Two Goats Brewing", artist:"Raedwald", time:"5–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-13", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-13", venue:"Scale House Brewery", artist:"Family Ties Acoustic Duo", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-14", venue:"Two Goats Brewing", artist:"Common Railers", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-14", venue:"Red Newt Cellars", artist:"Professor Keys (Andrew Westphal, live piano)", time:"5–8 PM", url:"https://www.rednewt.com/events"},
+  {date:"2026-08-14", venue:"Lucky Hare Brewing", artist:"Qwister", time:"5–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-14", venue:"Wagner Vineyards", artist:"The Smoking Loons", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-14", venue:"Hazlitt 1852 Vineyards", artist:"Cass and The Bailout Crew", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-14", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-08-14", venue:"Scale House Brewery", artist:"Scott Adams & Friends", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-15", venue:"Grist Iron Brewing", artist:"The Sweats", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-15", venue:"Two Goats Brewing", artist:"Far Trio", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-15", venue:"Either Oar", artist:"Cast & Cords Live Music", time:"2–4 PM", url:"https://senecalakewine.com/events/"},
+  {date:"2026-08-15", venue:"Scale House Brewery", artist:"Delta Mike Shaw Band", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-16", venue:"Grist Iron Brewing", artist:"The Mystic Twangers", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-16", venue:"Two Goats Brewing", artist:"Stratcat Willie & the Strays", time:"4–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-16", venue:"Wagner Vineyards", artist:"Michael Francis McCarthy", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-16", venue:"Hazlitt 1852 Vineyards", artist:"Payton Clark", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-16", venue:"Stonecat Café", artist:"Maplewood Jazz Team (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-16", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-08-16", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Scott Adams", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-16", venue:"Scale House Brewery", artist:"Kegs and Eggs with FAR Trio", time:"8–11 AM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-16", venue:"Scale House Brewery", artist:"St Vith", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-17", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-17", venue:"Lucky Hare Brewing", artist:"Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+
+  // Week of Aug 19–24
+  {date:"2026-08-19", venue:"Scale House Brewery", artist:"Mike Cavalier", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-20", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-20", venue:"Scale House Brewery", artist:"Brian Hughes", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-21", venue:"Grist Iron Brewing", artist:"Bad Alibi", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-21", venue:"Two Goats Brewing", artist:"St Vith", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-21", venue:"Wagner Vineyards", artist:"Miller & The Other Sinners", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-21", venue:"Hazlitt 1852 Vineyards", artist:"Bad Bear", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-21", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-08-21", venue:"Scale House Brewery", artist:"Blue Eyed Soul", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-22", venue:"Two Goats Brewing", artist:"Terrapin Station", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-22", venue:"Ria's Wines", artist:"Pack Party with Molly (dog rescue benefit, live music)", time:"12–5 PM", url:"https://www.riaswines.com"},
+  {date:"2026-08-22", venue:"Scale House Brewery", artist:"John Bolger Band", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-23", venue:"Wagner Vineyards", artist:"Frank Raponi", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-23", venue:"Hazlitt 1852 Vineyards", artist:"Two Horse Johnson", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-23", venue:"Stonecat Café", artist:"M.A.Q. (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-23", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-08-23", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Mike Shaw", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-23", venue:"Scale House Brewery", artist:"Brass Spitoon", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-24", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-24", venue:"Lucky Hare Brewing", artist:"Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+
+  // Week of Aug 26–31
+  {date:"2026-08-26", venue:"Lucky Hare Brewing", artist:"Jaimie Lee Trio", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-26", venue:"Scale House Brewery", artist:"Erin Fagan", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-27", venue:"Grist Iron Brewing", artist:"Travis Durfee", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-27", venue:"Stonecat Café", artist:"Dave Richman", time:"6–8 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-27", venue:"Scale House Brewery", artist:"Mathis Haug & Scott Adams", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-28", venue:"Grist Iron Brewing", artist:"Feed the Fire", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-28", venue:"Two Goats Brewing", artist:"Whistlin' Dyl", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-28", venue:"Wagner Vineyards", artist:"Betty's Ghost", time:"5–9:30 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-28", venue:"Hazlitt 1852 Vineyards", artist:"City Limits", time:"5:30–8:30 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-28", venue:"Solera Taphouse", artist:"Live Music", time:"6–9 PM", url:"https://www.solerataphouse.com"},
+  {date:"2026-08-28", venue:"Scale House Brewery", artist:"Surf Renegades", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-29", venue:"Grist Iron Brewing", artist:"The Pin Drops", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-29", venue:"Grist Iron Brewing", artist:"City Limits", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-29", venue:"Two Goats Brewing", artist:"Cisco & the Soul Benders", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-29", venue:"Scale House Brewery", artist:"Sam Nitsch", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-30", venue:"Grist Iron Brewing", artist:"Raponi & Glanville", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-08-30", venue:"Two Goats Brewing", artist:"40 Theeves", time:"4–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-08-30", venue:"Wagner Vineyards", artist:"Evan Dillon", time:"1–4 PM", url:"https://wagnervineyards.com/events-calendar/"},
+  {date:"2026-08-30", venue:"Hazlitt 1852 Vineyards", artist:"Fresh Vintage", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-08-30", venue:"Stonecat Café", artist:"Dave Richman Trio (Jazz Brunch)", time:"10:30 AM–1:30 PM", url:"https://www.stonecatcafe.com/music-events"},
+  {date:"2026-08-30", venue:"Idol Ridge Winery", artist:"Sunday Songs on the Ridge", time:"1:30–4:30 PM", url:"https://senecalakewine.com/series/sunday-songs-on-the-ridge-idol-ridge/"},
+  {date:"2026-08-30", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions ft. Scott Adams", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-30", venue:"Scale House Brewery", artist:"Dane Hendrix and the Hangdog Saints", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
+  {date:"2026-08-31", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
+  {date:"2026-08-31", venue:"Lucky Hare Brewing", artist:"Last Summer Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"}
+];
+buildPage(EVENTS);
 </script>
 </body>
 </html>
