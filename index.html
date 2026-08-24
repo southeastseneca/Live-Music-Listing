@@ -42,6 +42,7 @@
   .event-venue a{font-family:'Antonio',sans-serif;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:#e8aa4a;text-decoration:none}
   .event-venue a:hover{color:#f5deb3;text-decoration:underline}
   .event-artist{font-family:'Georgia',serif;font-size:13px;color:#f5deb3;line-height:1.3;margin-top:1px}
+  .event-tag{display:inline-block;font-family:Arial,sans-serif;font-size:9px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#1a1a1a;background:#c98a2c;border-radius:3px;padding:1px 5px;margin-right:5px;vertical-align:middle}
   .event-time{font-family:'Antonio',sans-serif;font-size:10px;color:#9b7b5a;margin-top:1px}
   .event-link{font-family:'Antonio',sans-serif;font-size:10px;color:#6b8a8a;text-decoration:none;white-space:nowrap;flex-shrink:0}
   .event-link:hover{color:#e8aa4a}
@@ -126,6 +127,11 @@ function attachLogoFallbacks(){
     }, {once:true});
   });
 }
+function artistHtml(artist){
+  const m=String(artist).match(/^\[([A-Za-z ]+)\]\s*(.*)$/);
+  if(!m) return artist;
+  return `<span class="event-tag">${m[1]}</span>${m[2]}`;
+}
 function buildPage(EVENTS){
   const today=new Date();today.setHours(0,0,0,0);
   const currentMonday=getMonday(today);
@@ -161,7 +167,7 @@ function buildPage(EVENTS){
       if(!d)return;
       const card=document.createElement('div');
       card.className='day-card';
-      const evHtml=byDay[dk].map(e=>`<div class="event-item">${logoEl(e.venue)}<div class="event-info"><div class="event-venue"><a href="${e.url}" target="_blank">${e.venue}</a></div><div class="event-artist">${e.artist}</div><div class="event-time">${e.time}</div></div><a class="event-link" href="${e.url}" target="_blank">→</a></div>`).join('');
+      const evHtml=byDay[dk].map(e=>`<div class="event-item">${logoEl(e.venue)}<div class="event-info"><div class="event-venue"><a href="${e.url}" target="_blank">${e.venue}</a></div><div class="event-artist">${artistHtml(e.artist)}</div><div class="event-time">${e.time}</div></div><a class="event-link" href="${e.url}" target="_blank">→</a></div>`).join('');
       card.innerHTML=`<div class="day-header"><span class="day-name">${DAY_NAMES[d.getDay()]}</span><span class="day-date-lbl">${MONTH_NAMES[d.getMonth()]} ${d.getDate()}</span></div><div class="events-list">${evHtml}</div>`;
       grid.appendChild(card);
     });
@@ -366,6 +372,7 @@ const EVENTS = [
   {date:"2026-08-30", venue:"Scale House Brewery", artist:"Dane Hendrix and the Hangdog Saints", time:"5–8 PM", url:"https://www.scalehousebrews.com/events"},
   {date:"2026-08-31", venue:"Rasta Ranch Vineyards", artist:"Monday Night Blues (Brett Beardslee)", time:"5–8 PM", url:"https://www.southeastseneca.com/events"},
   {date:"2026-08-31", venue:"Lucky Hare Brewing", artist:"Last Summer Open Mic w/ Mark Maynard", time:"6–8 PM", url:"https://www.luckyharebrewing.com/hector"},
+  {date:"2026-08-31", venue:"Solera Taphouse", artist:"[Trivia] Trivia Night", time:"Evening (time TBD)", url:"https://www.solerataphouse.com"},
 
   // Week of Sep 2–7 (Scale House confirmed from screenshot data; other venues PROJECTED PLACEHOLDER — replace with confirmed acts as they're published)
   {date:"2026-09-02", venue:"Scale House Brewery", artist:"Fresh Vintage", time:"6–9 PM", url:"https://www.scalehousebrews.com/events"},
