@@ -422,11 +422,56 @@ EXTRA_VENUES = [
         "name": "Two Goats Brewing",
         "site": "https://www.twogoatsbrewing.com",
     },
+    {
+        "url": "https://www.solerataphouse.com/events",
+        "name": "Solera Taphouse",
+        "site": "https://www.solerataphouse.com",
+    },
+    {
+        "url": "https://www.luckyharebrewing.com/hector",
+        "name": "Lucky Hare Brewing",
+        "site": "https://www.luckyharebrewing.com",
+    },
+    {
+        "url": "https://www.forgecellars.com/events",
+        "name": "Forge Cellars",
+        "site": "https://www.forgecellars.com",
+    },
+    {
+        "url": "https://www.jrdillwinery.com/events",
+        "name": "J.R. Dill Winery",
+        "site": "https://www.jrdillwinery.com",
+    },
 ]
+
+# Master-list venues NOT yet scraped directly. Each needs its own parser
+# because its events page is not the Squarespace shape above. Until then
+# they are covered only by the SES aggregator, or manually.
+#   WordPress / Events Calendar : Hazlitt 1852, Wagner Vineyards,
+#                                 Hillick & Hobbs, Idol Ridge,
+#                                 Finger Lakes Distilling
+#   Shopify                     : Red Newt Cellars
+#   Wix                         : Stonecat Cafe
+#   Other / plain               : Atwater, Osmote, Ryan William,
+#                                 Ria's Wines, Sawmill Creek
+#   Not machine-readable at all : Scale House (Square Online, JS-rendered),
+#                                 The Diamond on Seneca (JS), CLR (JS
+#                                 calendar), Leidenfrost (no events page),
+#                                 Rasta Ranch (no site of its own)
+
+
+def _norm(s):
+    """Lowercase, strip punctuation/accented dashes, collapse whitespace.
+    Makes '2 Horse Johnson \u2014 Halloween Pregame' and
+    '2 Horse Johnson: Halloween pregame!' resolve to the same key."""
+    s = (s or "").lower()
+    s = re.sub(r"[\u2010-\u2015\u2018\u2019\u201c\u201d]", " ", s)
+    s = re.sub(r"[^a-z0-9 ]+", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
 
 
 def event_key(e):
-    return (e["date"], e["venue"].lower().strip(), e["artist"][:25].lower().strip())
+    return (e["date"], _norm(e["venue"]), _norm(e["artist"])[:30])
 
 
 def main():
