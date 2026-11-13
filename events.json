@@ -2906,10 +2906,52 @@
   },
   {
     "date": "2026-11-13",
+    "venue": "Grist Iron Brewing",
+    "artist": "Logan Route",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
+  },
+  {
+    "date": "2026-11-13",
     "venue": "Scale House Brewery",
     "artist": "Dylan Doyle",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-11-13",
+    "venue": "Two Goats Brewing",
+    "artist": "Rena Guinn and Joe Lule",
+    "time": "5:00 PM - 7:00 PM",
+    "url": "https://www.twogoatsbrewing.com/music-events"
+  },
+  {
+    "date": "2026-11-14",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Dinner] Preserving Summer - Johnny's Kitchen Wine Dinner",
+    "time": "5:15 PM - 9:00 PM",
+    "url": "https://damianiwinecellars.com/events/preserving-summer-a-johnnys-kitchen-wine-dinner/"
+  },
+  {
+    "date": "2026-11-14",
+    "venue": "Grist Iron Brewing",
+    "artist": "Michael Francis McCarthy",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
+  },
+  {
+    "date": "2026-11-14",
+    "venue": "Two Goats Brewing",
+    "artist": "Freight Duo",
+    "time": "5:00 PM - 7:00 PM",
+    "url": "https://www.twogoatsbrewing.com/music-events"
+  },
+  {
+    "date": "2026-11-16",
+    "venue": "Solera Taphouse",
+    "artist": "[Trivia] Monday Night Trivia",
+    "time": "6:30 PM",
+    "url": "https://www.solerataphouse.com/events"
   },
   {
     "date": "2026-11-18",
