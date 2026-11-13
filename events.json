@@ -2969,10 +2969,24 @@
   },
   {
     "date": "2026-11-20",
+    "venue": "Grist Iron Brewing",
+    "artist": "FAR Trio",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
+  },
+  {
+    "date": "2026-11-20",
     "venue": "Scale House Brewery",
     "artist": "Vinyl Roots",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-11-20",
+    "venue": "Solera Taphouse",
+    "artist": "Underwood Drive",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.solerataphouse.com/events"
   },
   {
     "date": "2026-11-21",
@@ -2987,6 +3001,20 @@
     "artist": "Jon Lamanna",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-11-27",
+    "venue": "Solera Taphouse",
+    "artist": "Pat Carlineo",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.solerataphouse.com/events"
+  },
+  {
+    "date": "2026-11-28",
+    "venue": "Grist Iron Brewing",
+    "artist": "JAY",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
   },
   {
     "date": "2026-11-28",
@@ -3018,10 +3046,24 @@
   },
   {
     "date": "2026-12-04",
+    "venue": "Grist Iron Brewing",
+    "artist": "FAR Trio",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
+  },
+  {
+    "date": "2026-12-04",
     "venue": "Scale House Brewery",
     "artist": "Miller & The Other Sinners",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-12-05",
+    "venue": "Grist Iron Brewing",
+    "artist": "Frank Raponi",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.gristironbrewing.com/events-live-music"
   },
   {
     "date": "2026-12-09",
@@ -3046,10 +3088,24 @@
   },
   {
     "date": "2026-12-12",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Wine Club] December Wine Club Party",
+    "time": "All Day",
+    "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2026-12-12",
     "venue": "Scale House Brewery",
     "artist": "Bluegrass Alley",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-12-12",
+    "venue": "Two Goats Brewing",
+    "artist": "Terrapin Station Acoustic",
+    "time": "5:00 PM - 7:00 PM",
+    "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
     "date": "2026-12-16",
@@ -3092,5 +3148,33 @@
     "artist": "Hector Open Mic",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2027-01-22",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Festival] South East Seneca Cook-Off",
+    "time": "12:00 PM - 5:00 PM",
+    "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2027-01-23",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Festival] South East Seneca Cook-Off",
+    "time": "12:00 PM - 5:00 PM",
+    "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2027-02-13",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Tasting] Meritage Blending Class",
+    "time": "11:00 AM - 2:00 PM",
+    "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2027-02-14",
+    "venue": "Damiani Wine Cellars",
+    "artist": "[Tasting] Meritage Blending Class",
+    "time": "11:00 AM - 2:00 PM",
+    "url": "https://damianiwinecellars.com/events/"
   }
 ]
