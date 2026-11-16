@@ -2976,6 +2976,13 @@
   },
   {
     "date": "2026-11-20",
+    "venue": "Grist Iron Brewing",
+    "artist": "Live Music Lineup: FAR Trio",
+    "time": "6–9 PM",
+    "url": "https://www.gristironbrewing.com"
+  },
+  {
+    "date": "2026-11-20",
     "venue": "Scale House Brewery",
     "artist": "Vinyl Roots",
     "time": "6–9 PM",
@@ -2989,11 +2996,46 @@
     "url": "https://www.solerataphouse.com/events"
   },
   {
+    "date": "2026-11-20",
+    "venue": "Solera Taphouse",
+    "artist": "Live Music: Underwood Drive",
+    "time": "6–9 PM",
+    "url": "https://www.solerataphouse.com"
+  },
+  {
+    "date": "2026-11-20",
+    "venue": "Two Goats Brewing",
+    "artist": "Mathis Haug @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-11-20",
+    "venue": "Two Goats Brewing",
+    "artist": "Mathis Haug",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
     "date": "2026-11-21",
     "venue": "Scale House Brewery",
     "artist": "The Grooves!",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-11-21",
+    "venue": "Two Goats Brewing",
+    "artist": "Stratcat Willie & the Strays @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-11-21",
+    "venue": "Two Goats Brewing",
+    "artist": "Stratcat Willie and the Strays",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-11-27",
@@ -3010,6 +3052,27 @@
     "url": "https://www.solerataphouse.com/events"
   },
   {
+    "date": "2026-11-27",
+    "venue": "Solera Taphouse",
+    "artist": "Live Music: Pat carlineo and Friends",
+    "time": "6–9 PM",
+    "url": "https://www.solerataphouse.com"
+  },
+  {
+    "date": "2026-11-27",
+    "venue": "Two Goats Brewing",
+    "artist": "Technicolor Trailer Park @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-11-27",
+    "venue": "Two Goats Brewing",
+    "artist": "Technicolor Trailer Park",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
     "date": "2026-11-28",
     "venue": "Grist Iron Brewing",
     "artist": "JAY",
@@ -3018,10 +3081,31 @@
   },
   {
     "date": "2026-11-28",
+    "venue": "Grist Iron Brewing",
+    "artist": "Live Music Lineup: JAY",
+    "time": "5–8 PM",
+    "url": "https://www.gristironbrewing.com"
+  },
+  {
+    "date": "2026-11-28",
     "venue": "Scale House Brewery",
     "artist": "The Sorters",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-11-28",
+    "venue": "Two Goats Brewing",
+    "artist": "Doc Possum Duo @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-11-28",
+    "venue": "Two Goats Brewing",
+    "artist": "Doc Possum Duo",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-11-29",
@@ -3053,10 +3137,31 @@
   },
   {
     "date": "2026-12-04",
+    "venue": "Grist Iron Brewing",
+    "artist": "Live Music Lineup: FAR Trio",
+    "time": "6–9 PM",
+    "url": "https://www.gristironbrewing.com"
+  },
+  {
+    "date": "2026-12-04",
     "venue": "Scale House Brewery",
     "artist": "Miller & The Other Sinners",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-12-04",
+    "venue": "Two Goats Brewing",
+    "artist": "Cisco PL Duo @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-04",
+    "venue": "Two Goats Brewing",
+    "artist": "Cisco PL  Duo",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-12-05",
@@ -3064,6 +3169,20 @@
     "artist": "Frank Raponi",
     "time": "5:00 PM - 8:00 PM",
     "url": "https://www.gristironbrewing.com/events-live-music"
+  },
+  {
+    "date": "2026-12-05",
+    "venue": "Grist Iron Brewing",
+    "artist": "Live Music Lineup: Frank Raponi",
+    "time": "5–8 PM",
+    "url": "https://www.gristironbrewing.com"
+  },
+  {
+    "date": "2026-12-05",
+    "venue": "Two Goats Brewing",
+    "artist": "Sing Trece",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-12-09",
@@ -3087,6 +3206,20 @@
     "url": "https://www.scalehousebrews.com/events"
   },
   {
+    "date": "2026-12-11",
+    "venue": "Two Goats Brewing",
+    "artist": "Oliver Burdo @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-11",
+    "venue": "Two Goats Brewing",
+    "artist": "Oliver Burdo",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
     "date": "2026-12-12",
     "venue": "Damiani Wine Cellars",
     "artist": "[Wine Club] December Wine Club Party",
@@ -3108,6 +3241,13 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
+    "date": "2026-12-12",
+    "venue": "Two Goats Brewing",
+    "artist": "Terrapin Station Acoustic @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
     "date": "2026-12-16",
     "venue": "Scale House Brewery",
     "artist": "Logan Route",
@@ -3127,6 +3267,41 @@
     "artist": "FAR Trio",
     "time": "6–9 PM",
     "url": "https://www.scalehousebrews.com/events"
+  },
+  {
+    "date": "2026-12-18",
+    "venue": "Two Goats Brewing",
+    "artist": "Brett Beardslee @ Two Goats",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-18",
+    "venue": "Two Goats Brewing",
+    "artist": "Brett Beardslee",
+    "time": "5–7 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-19",
+    "venue": "Lucky Hare Brewing",
+    "artist": "Festivus at the Brewery Party!!",
+    "time": "1:00 PM",
+    "url": "https://www.luckyharebrewing.com"
+  },
+  {
+    "date": "2026-12-19",
+    "venue": "Two Goats Brewing",
+    "artist": "Notorious Stringbusters",
+    "time": "7–10 PM",
+    "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-25",
+    "venue": "Two Goats Brewing",
+    "artist": "Winter Break",
+    "time": "12:00 PM12:00",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-12-27",
@@ -3155,6 +3330,13 @@
     "artist": "[Festival] South East Seneca Cook-Off",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2027-01-22",
+    "venue": "Two Goats Brewing",
+    "artist": "South East Seneca Cook-Off",
+    "time": "12:30 PM12:30",
+    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2027-01-23",
