@@ -2954,6 +2954,20 @@
     "url": "https://www.solerataphouse.com/events"
   },
   {
+    "date": "2026-11-19",
+    "venue": "Forge Cellars",
+    "artist": "[Tasting] Fete du Beau Beau - Beaujolais Nouveau",
+    "time": "11:30 AM - 6:30 PM",
+    "url": "https://www.forgecellars.com/events"
+  },
+  {
+    "date": "2026-11-20",
+    "venue": "Forge Cellars",
+    "artist": "The Djangoners",
+    "time": "5:00 PM - 7:00 PM",
+    "url": "https://www.forgecellars.com/events"
+  },
+  {
     "date": "2026-11-20",
     "venue": "Grist Iron Brewing",
     "artist": "FAR Trio",
@@ -2962,17 +2976,17 @@
   },
   {
     "date": "2026-11-20",
-    "venue": "Grist Iron Brewing",
-    "artist": "Live Music Lineup: FAR Trio",
-    "time": "6–9 PM",
-    "url": "https://www.gristironbrewing.com"
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
+    "time": "10:00 AM - 5:00 PM",
+    "url": "https://hazlitt1852.com/event/november-deck-the-halls-seneca-lake-wine-trail-event/"
   },
   {
     "date": "2026-11-20",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
-    "time": "12:00 PM - 5:00 PM",
-    "url": "https://hazlitt1852.com/event/november-deck-the-halls-seneca-lake-wine-trail-event/"
+    "venue": "Hillick & Hobbs",
+    "artist": "[Tasting] The Sparkling Social",
+    "time": "5:30 PM - 7:30 PM",
+    "url": "https://www.hillickandhobbs.com/events/"
   },
   {
     "date": "2026-11-20",
@@ -2983,30 +2997,16 @@
   },
   {
     "date": "2026-11-20",
-    "venue": "Solera Taphouse",
-    "artist": "Live Music: Underwood Drive",
-    "time": "6–9 PM",
-    "url": "https://www.solerataphouse.com"
-  },
-  {
-    "date": "2026-11-20",
     "venue": "Two Goats Brewing",
     "artist": "Mathis Haug",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-11-20",
-    "venue": "Two Goats Brewing",
-    "artist": "Mathis Haug @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
     "date": "2026-11-21",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
-    "time": "12:00 PM - 5:00 PM",
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
+    "time": "10:00 AM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/november-deck-the-halls-seneca-lake-wine-trail-event/"
   },
   {
@@ -3017,16 +3017,9 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-11-21",
-    "venue": "Two Goats Brewing",
-    "artist": "Stratcat Willie & the Strays @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
     "date": "2026-11-22",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/november-deck-the-halls-seneca-lake-wine-trail-event/"
   },
@@ -3046,24 +3039,10 @@
   },
   {
     "date": "2026-11-27",
-    "venue": "Solera Taphouse",
-    "artist": "Live Music: Pat carlineo and Friends",
-    "time": "6–9 PM",
-    "url": "https://www.solerataphouse.com"
-  },
-  {
-    "date": "2026-11-27",
     "venue": "Two Goats Brewing",
     "artist": "Technicolor Trailer Park",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
-  },
-  {
-    "date": "2026-11-27",
-    "venue": "Two Goats Brewing",
-    "artist": "Technicolor Trailer Park @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-11-28",
@@ -3074,24 +3053,10 @@
   },
   {
     "date": "2026-11-28",
-    "venue": "Grist Iron Brewing",
-    "artist": "Live Music Lineup: JAY",
-    "time": "5–8 PM",
-    "url": "https://www.gristironbrewing.com"
-  },
-  {
-    "date": "2026-11-28",
     "venue": "Two Goats Brewing",
     "artist": "Doc Possum Duo",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
-  },
-  {
-    "date": "2026-11-28",
-    "venue": "Two Goats Brewing",
-    "artist": "Doc Possum Duo @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-12-04",
@@ -3102,16 +3067,9 @@
   },
   {
     "date": "2026-12-04",
-    "venue": "Grist Iron Brewing",
-    "artist": "Live Music Lineup: FAR Trio",
-    "time": "6–9 PM",
-    "url": "https://www.gristironbrewing.com"
-  },
-  {
-    "date": "2026-12-04",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
-    "time": "12:00 PM - 5:00 PM",
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
+    "time": "10:00 AM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
   },
   {
@@ -3122,13 +3080,6 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-12-04",
-    "venue": "Two Goats Brewing",
-    "artist": "Cisco PL Duo @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
     "date": "2026-12-05",
     "venue": "Grist Iron Brewing",
     "artist": "Frank Raponi",
@@ -3137,16 +3088,9 @@
   },
   {
     "date": "2026-12-05",
-    "venue": "Grist Iron Brewing",
-    "artist": "Live Music Lineup: Frank Raponi",
-    "time": "5–8 PM",
-    "url": "https://www.gristironbrewing.com"
-  },
-  {
-    "date": "2026-12-05",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
-    "time": "12:00 PM - 5:00 PM",
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
+    "time": "10:00 AM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
   },
   {
@@ -3158,8 +3102,8 @@
   },
   {
     "date": "2026-12-06",
-    "venue": "Hazlitt 1852 Vineyards",
-    "artist": "[Festival] Deck the Halls - Seneca Lake Wine Trail",
+    "venue": "Hazlitt 1852 & Wagner Vineyards",
+    "artist": "[Wine Trail] Deck the Halls",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
   },
@@ -3169,13 +3113,6 @@
     "artist": "Oliver Burdo",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
-  },
-  {
-    "date": "2026-12-11",
-    "venue": "Two Goats Brewing",
-    "artist": "Oliver Burdo @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2026-12-12",
@@ -3192,13 +3129,6 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-12-12",
-    "venue": "Two Goats Brewing",
-    "artist": "Terrapin Station Acoustic @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
     "date": "2026-12-18",
     "venue": "Hazlitt 1852 Vineyards",
     "artist": "[Comedy] Next Stop Comedy",
@@ -3213,20 +3143,6 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-12-18",
-    "venue": "Two Goats Brewing",
-    "artist": "Brett Beardslee @ Two Goats",
-    "time": "5–7 PM",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
-    "date": "2026-12-19",
-    "venue": "Lucky Hare Brewing",
-    "artist": "Festivus at the Brewery Party!!",
-    "time": "1:00 PM",
-    "url": "https://www.luckyharebrewing.com"
-  },
-  {
     "date": "2026-12-19",
     "venue": "Two Goats Brewing",
     "artist": "Notorious Stringbusters",
@@ -3234,25 +3150,11 @@
     "url": "https://www.twogoatsbrewing.com/music-events"
   },
   {
-    "date": "2026-12-25",
-    "venue": "Two Goats Brewing",
-    "artist": "Winter Break",
-    "time": "12:00 PM12:00",
-    "url": "https://www.twogoatsbrewing.com"
-  },
-  {
     "date": "2027-01-22",
     "venue": "Damiani Wine Cellars",
     "artist": "[Festival] South East Seneca Cook-Off",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://damianiwinecellars.com/events/"
-  },
-  {
-    "date": "2027-01-22",
-    "venue": "Two Goats Brewing",
-    "artist": "South East Seneca Cook-Off",
-    "time": "12:30 PM12:30",
-    "url": "https://www.twogoatsbrewing.com"
   },
   {
     "date": "2027-01-23",
