@@ -460,12 +460,16 @@ EXTRA_VENUES = [
 #                                 Rasta Ranch (no site of its own)
 
 
+_PREFIX = re.compile(r"^(?:live\s+music\s+lineup|live\s+music|music|live)\s*[:\-]?\s*")
+_SUFFIX = re.compile(r"\s*@.*$")
+
+
 def _norm(s):
-    """Lowercase, strip punctuation/accented dashes, collapse whitespace.
-    Makes '2 Horse Johnson \u2014 Halloween Pregame' and
-    '2 Horse Johnson: Halloween pregame!' resolve to the same key."""
     s = (s or "").lower()
     s = re.sub(r"[\u2010-\u2015\u2018\u2019\u201c\u201d]", " ", s)
+    s = _SUFFIX.sub("", s)
+    s = _PREFIX.sub("", s)
+    s = s.replace("&", " and ")
     s = re.sub(r"[^a-z0-9 ]+", " ", s)
     return re.sub(r"\s+", " ", s).strip()
 
