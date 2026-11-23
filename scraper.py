@@ -460,22 +460,202 @@ EXTRA_VENUES = [
 #                                 Rasta Ranch (no site of its own)
 
 
+# ---------------------------------------------------------------------------
+# iCalendar (.ics) feeds — The Events Calendar WordPress plugin exposes one at
+# /?post_type=tribe_events&ical=1 on every site that runs it. Structured data
+# beats HTML scraping: exact start/end times with timezone, clean titles with
+# no page boilerplate, and canonical URLs.
+#
+# Verified live: Hazlitt 1852, Finger Lakes Distilling.
+# Unverified (left in; validated at runtime): Wagner, Idol Ridge, Hillick & Hobbs.
+# Each feed is checked for BEGIN:VCALENDAR and skipped if it returns anything
+# else, so a venue that drops the plugin degrades quietly instead of breaking
+# the run.
+#
+# Deliberately NOT included: Squarespace venues (Grist Iron, Two Goats,
+# Solera). Their ?format=ical path is disallowed by robots.txt, and their
+# HTML pages already parse correctly.
+# ---------------------------------------------------------------------------
+
+ICS_FEEDS = [
+    {"name": "Hazlitt 1852 Vineyards",
+     "url": "https://hazlitt1852.com/?post_type=tribe_events&ical=1"},
+    {"name": "Finger Lakes Distilling",
+     "url": "https://fingerlakesdistilling.com/?post_type=tribe_events&ical=1"},
+    {"name": "Wagner Vineyards",
+     "url": "https://www.wagnervineyards.com/?post_type=tribe_events&ical=1"},
+    {"name": "Idol Ridge Winery",
+     "url": "https://idolridgewinery.com/?post_type=tribe_events&ical=1"},
+    {"name": "Hillick & Hobbs",
+     "url": "https://www.hillickandhobbs.com/?post_type=tribe_events&ical=1"},
+]
+
+MAX_SPAN_DAYS = 7   # multi-day events longer than this are listed on day 1 only
+
+
+def _ics_unfold(text):
+    """RFC 5545: a line beginning with space/tab continues the previous one."""
+    out = []
+    for raw in text.replace("\r\n", "\n").replace("\r", "\n").split("\n"):
+        if raw[:1] in (" ", "\t") and out:
+            out[-1] += raw[1:]
+        else:
+            out.append(raw)
+    return out
+
+
+def _ics_unescape(v):
+    return (v.replace("\\n", " ").replace("\\,", ",")
+             .replace("\\;", ";").replace("\\\\", "\\")).strip()
+
+
+def _ics_dt(value, params):
+    """Return (date_str, time_or_None). Handles VALUE=DATE all-day form."""
+    v = value.strip()
+    if "VALUE=DATE" in params or (len(v) == 8 and v.isdigit()):
+        return "%s-%s-%s" % (v[0:4], v[4:6], v[6:8]), None
+    if "T" not in v:
+        return None, None
+    d, t = v.split("T", 1)
+    if len(d) != 8 or not d.isdigit():
+        return None, None
+    return "%s-%s-%s" % (d[0:4], d[4:6], d[6:8]), t[:4]
+
+
+def _fmt_clock(hhmm):
+    h, m = int(hhmm[:2]), int(hhmm[2:4])
+    ampm = "AM" if h < 12 else "PM"
+    h12 = h % 12 or 12
+    return "%d:%02d %s" % (h12, m, ampm)
+
+
+def _days_between(d1, d2):
+    from datetime import date as _date
+    a = _date(*[int(x) for x in d1.split("-")])
+    b = _date(*[int(x) for x in d2.split("-")])
+    return (b - a).days
+
+
+def parse_ics(text, venue_name, fallback_url=""):
+    """Parse a VCALENDAR into this project's event dicts."""
+    if "BEGIN:VCALENDAR" not in text:
+        raise ValueError("not an iCalendar feed")
+
+    events, cur, in_ev = [], {}, False
+    for line in _ics_unfold(text):
+        if line.startswith("BEGIN:VEVENT"):
+            in_ev, cur = True, {}
+            continue
+        if line.startswith("END:VEVENT"):
+            in_ev = False
+            ev = _build(cur, venue_name, fallback_url)
+            events.extend(ev)
+            continue
+        if not in_ev or ":" not in line:
+            continue
+        name, value = line.split(":", 1)
+        key = name.split(";", 1)[0].upper()
+        params = name[len(key):].upper()
+        if key in ("DTSTART", "DTEND"):
+            cur[key] = _ics_dt(value, params)
+        elif key in ("SUMMARY", "URL"):
+            cur[key] = _ics_unescape(value)
+    return events
+
+
+def _build(cur, venue_name, fallback_url):
+    summary = cur.get("SUMMARY", "").strip()
+    if not summary or "DTSTART" not in cur:
+        return []
+    sdate, stime = cur["DTSTART"]
+    if not sdate:
+        return []
+    edate, etime = cur.get("DTEND", (None, None))
+
+    if stime and etime:
+        time_str = "%s - %s" % (_fmt_clock(stime), _fmt_clock(etime))
+    elif stime:
+        time_str = _fmt_clock(stime)
+    else:
+        time_str = "All Day"
+
+    url = cur.get("URL") or fallback_url
+
+    # A multi-day event gets one row per day so it shows on each.
+    span = 0
+    if edate and edate != sdate:
+        span = _days_between(sdate, edate)
+        # DTEND at midnight is exclusive of the final day
+        if etime == "0000":
+            span -= 1
+    if span <= 0 or span > MAX_SPAN_DAYS:
+        return [{"date": sdate, "venue": venue_name, "artist": summary,
+                 "time": time_str, "url": url}]
+
+    from datetime import date as _date, timedelta
+    start = _date(*[int(x) for x in sdate.split("-")])
+    rows = []
+    for i in range(span + 1):
+        day = (start + timedelta(days=i)).isoformat()
+        rows.append({"date": day, "venue": venue_name, "artist": summary,
+                     "time": time_str, "url": url})
+    return rows
+
+
+# Venue sites wrap the act name in their own boilerplate. Strip it before
+# hashing, or a curated row ("FAR Trio") and the scraped row
+# ("Live Music Lineup: FAR Trio") become two separate events.
 _PREFIX = re.compile(r"^(?:live\s+music\s+lineup|live\s+music|music|live)\s*[:\-]?\s*")
 _SUFFIX = re.compile(r"\s*@.*$")
 
 
 def _norm(s):
+    """Lowercase, strip venue boilerplate/punctuation/accented dashes,
+    normalise '&' to 'and', collapse whitespace.
+    Makes all of these resolve to one key:
+      '2 Horse Johnson \u2014 Halloween Pregame'
+      '2 Horse Johnson: Halloween pregame!'
+      'Live Music Lineup: FAR Trio'  ==  'FAR Trio'
+      'Stratcat Willie & the Strays @ Two Goats'
+          == 'Stratcat Willie and the Strays'"""
     s = (s or "").lower()
     s = re.sub(r"[\u2010-\u2015\u2018\u2019\u201c\u201d]", " ", s)
-    s = _SUFFIX.sub("", s)
-    s = _PREFIX.sub("", s)
-    s = s.replace("&", " and ")
+    s = _SUFFIX.sub("", s)          # drop trailing "@ Two Goats"
+    s = _PREFIX.sub("", s)          # drop leading "Live Music Lineup:"
+    s = s.replace("&", " and ")     # "Willie & the Strays" == "Willie and the Strays"
     s = re.sub(r"[^a-z0-9 ]+", " ", s)
     return re.sub(r"\s+", " ", s).strip()
 
 
 def event_key(e):
     return (e["date"], _norm(e["venue"]), _norm(e["artist"])[:30])
+
+
+def fetch_ics_feed(url, venue_name):
+    """Fetch and parse one iCalendar feed. Raises on anything unusable."""
+    r = requests.get(url, timeout=30, headers={
+        "User-Agent": "SES-Music-Bot/1.0 (+https://southeastseneca.com)"})
+    r.raise_for_status()
+    return parse_ics(r.text, venue_name, fallback_url=url)
+
+
+MIN_PREFIX_MATCH = 8
+
+
+def same_event(k1, k2):
+    """True if two keys describe one event.
+
+    Catches the case a plain key cannot: a venue feed that appends to the act
+    name, e.g. curated 'Pat Carlineo' vs scraped 'Pat Carlineo and Friends'.
+    Requires >=8 shared leading characters so short distinct names such as
+    'JAY' are never merged."""
+    if k1[0] != k2[0] or k1[1] != k2[1]:
+        return False
+    a, b = k1[2], k2[2]
+    if a == b:
+        return True
+    short, long_ = (a, b) if len(a) <= len(b) else (b, a)
+    return len(short) >= MIN_PREFIX_MATCH and long_.startswith(short)
 
 
 def main():
@@ -514,6 +694,16 @@ def main():
         except Exception as exc:
             print(f"ERROR fetching {v['name']} page: {exc}")
 
+    # Fetch iCalendar feeds (The Events Calendar plugin sites)
+    for feed in ICS_FEEDS:
+        print(f"\nFetching {feed['name']} iCal feed...")
+        try:
+            ics_events = fetch_ics_feed(feed["url"], feed["name"])
+            print(f"Parsed {len(ics_events)} events from {feed['name']}\n")
+            all_scraped.extend(ics_events)
+        except Exception as exc:
+            print(f"SKIP {feed['name']} iCal feed: {exc}")
+
     # Fetch from Damiani (WordPress format — separate parser)
     print("\nScraping Damiani Wine Cellars events...")
     try:
@@ -527,17 +717,24 @@ def main():
         print("No events scraped from any source — aborting to avoid data loss.")
         sys.exit(1)
 
-    # Merge: add new future events not already present
+    # Merge: add new future events not already present.
+    # Index by (date, venue) so near-duplicates can be compared cheaply.
+    by_dv = {}
+    for k in existing_keys:
+        by_dv.setdefault((k[0], k[1]), []).append(k)
+
     added = 0
     for ev in all_scraped:
         if ev["date"] < today:
             continue  # skip past events
         k = event_key(ev)
-        if k not in existing_keys:
-            existing.append(ev)
-            existing_keys.add(k)
-            added += 1
-            print(f"  + {ev['date']}  {ev['venue']}  —  {ev['artist']}")
+        if any(same_event(k, other) for other in by_dv.get((k[0], k[1]), ())):
+            continue  # already have this event, under either spelling
+        existing.append(ev)
+        existing_keys.add(k)
+        by_dv.setdefault((k[0], k[1]), []).append(k)
+        added += 1
+        print(f"  + {ev['date']}  {ev['venue']}  —  {ev['artist']}")
 
     print(f"\n{added} new event(s) added")
 
