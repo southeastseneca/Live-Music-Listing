@@ -1766,16 +1766,16 @@
   {
     "date": "2026-09-20",
     "venue": "Hazlitt 1852 Vineyards",
-    "artist": "Madelyn Rose @ The Oasis",
-    "time": "11 AM–1 PM",
-    "url": "https://www.southeastseneca.com/events/red-cats-harvest-party"
+    "artist": "Steve Piotrowski",
+    "time": "2–5 PM",
+    "url": "https://hazlitt1852.com"
   },
   {
     "date": "2026-09-20",
     "venue": "Hazlitt 1852 Vineyards",
-    "artist": "Steve Piotrowski",
-    "time": "2–5 PM",
-    "url": "https://hazlitt1852.com"
+    "artist": "Madelyn Rose @ The Oasis",
+    "time": "11 AM–1 PM",
+    "url": "https://www.southeastseneca.com/events/red-cats-harvest-party"
   },
   {
     "date": "2026-09-20",
@@ -3032,17 +3032,17 @@
   },
   {
     "date": "2026-11-27",
-    "venue": "Solera Taphouse",
-    "artist": "Pat Carlineo",
-    "time": "6:00 PM - 9:00 PM",
-    "url": "https://www.solerataphouse.com/events"
+    "venue": "Finger Lakes Distilling",
+    "artist": "Black Friday Party",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://fingerlakesdistilling.com/event/black-friday-party/"
   },
   {
     "date": "2026-11-27",
     "venue": "Solera Taphouse",
-    "artist": "Live Music: Pat carlineo and Friends",
-    "time": "6–9 PM",
-    "url": "https://www.solerataphouse.com"
+    "artist": "Pat Carlineo",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.solerataphouse.com/events"
   },
   {
     "date": "2026-11-27",
@@ -3064,6 +3064,13 @@
     "artist": "Doc Possum Duo",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
+  },
+  {
+    "date": "2026-11-30",
+    "venue": "Solera Taphouse",
+    "artist": "[Trivia] Monday Night Trivia",
+    "time": "6:30 PM",
+    "url": "https://www.solerataphouse.com/events"
   },
   {
     "date": "2026-12-04",
@@ -3113,6 +3120,13 @@
     "artist": "[Wine Trail] Deck the Halls",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
+  },
+  {
+    "date": "2026-12-10",
+    "venue": "Hazlitt 1852 Vineyards",
+    "artist": "Ladies Night: Sleigh All Day!",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://hazlitt1852.com/event/ladies-night-sleigh-all-day-december-10-2026/"
   },
   {
     "date": "2026-12-11",
@@ -3179,6 +3193,13 @@
   },
   {
     "date": "2027-01-22",
+    "venue": "Finger Lakes Distilling",
+    "artist": "[Festival] Chowder Cook Off",
+    "time": "12:00 PM - 5:00 PM",
+    "url": "https://fingerlakesdistilling.com/event/chowder-cook-off/"
+  },
+  {
+    "date": "2027-01-22",
     "venue": "Two Goats Brewing",
     "artist": "South East Seneca Cook-Off",
     "time": "12:30 PM12:30",
@@ -3190,6 +3211,13 @@
     "artist": "[Festival] South East Seneca Cook-Off",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://damianiwinecellars.com/events/"
+  },
+  {
+    "date": "2027-01-23",
+    "venue": "Finger Lakes Distilling",
+    "artist": "[Festival] Chowder Cook Off",
+    "time": "12:00 PM - 5:00 PM",
+    "url": "https://fingerlakesdistilling.com/event/chowder-cook-off/"
   },
   {
     "date": "2027-02-13",
