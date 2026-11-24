@@ -3060,10 +3060,24 @@
   },
   {
     "date": "2026-11-28",
+    "venue": "Scale House Brewery",
+    "artist": "The Sorters",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-11-28",
     "venue": "Two Goats Brewing",
     "artist": "Doc Possum Duo",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
+  },
+  {
+    "date": "2026-11-29",
+    "venue": "Scale House Brewery",
+    "artist": "Sam Nitsch",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-11-30",
@@ -3071,6 +3085,20 @@
     "artist": "[Trivia] Monday Night Trivia",
     "time": "6:30 PM",
     "url": "https://www.solerataphouse.com/events"
+  },
+  {
+    "date": "2026-12-02",
+    "venue": "Scale House Brewery",
+    "artist": "Greg Neff",
+    "time": "6:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-03",
+    "venue": "Scale House Brewery",
+    "artist": "Hector Open Mic",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-12-04",
@@ -3092,6 +3120,13 @@
     "artist": "December Deck the Halls Seneca Lake Wine Trail Event",
     "time": "12:00 PM - 5:00 PM",
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
+  },
+  {
+    "date": "2026-12-04",
+    "venue": "Scale House Brewery",
+    "artist": "Miller & The Other Sinners",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-12-04",
@@ -3164,6 +3199,13 @@
     "url": "https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"
   },
   {
+    "date": "2026-12-09",
+    "venue": "Scale House Brewery",
+    "artist": "Gillmuir Girls",
+    "time": "6:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
     "date": "2026-12-10",
     "venue": "Hazlitt 1852 Vineyards",
     "artist": "Ladies Night: Sleigh All Day!",
@@ -3171,11 +3213,25 @@
     "url": "https://hazlitt1852.com/event/ladies-night-sleigh-all-day-december-10-2026/"
   },
   {
+    "date": "2026-12-10",
+    "venue": "Scale House Brewery",
+    "artist": "Hector Open Mic",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
     "date": "2026-12-11",
     "venue": "Grist Iron Brewing",
     "artist": "Live Music Lineup: Jon Lamanna",
     "time": "6–9 PM",
     "url": "https://www.gristironbrewing.com"
+  },
+  {
+    "date": "2026-12-11",
+    "venue": "Scale House Brewery",
+    "artist": "Unparallel Duo",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-12-11",
@@ -3207,10 +3263,31 @@
   },
   {
     "date": "2026-12-12",
+    "venue": "Scale House Brewery",
+    "artist": "Bluegrass Alley",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-12",
     "venue": "Two Goats Brewing",
     "artist": "Terrapin Station Acoustic",
     "time": "5:00 PM - 7:00 PM",
     "url": "https://www.twogoatsbrewing.com/music-events"
+  },
+  {
+    "date": "2026-12-16",
+    "venue": "Scale House Brewery",
+    "artist": "Logan Route",
+    "time": "6:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-17",
+    "venue": "Scale House Brewery",
+    "artist": "Hector Open Mic",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-12-18",
@@ -3232,6 +3309,13 @@
     "artist": "Next Stop Comedy @ Hazlitt 1852 Vineyards",
     "time": "7:00 PM - 9:00 PM",
     "url": "https://hazlitt1852.com/event/next-stop-comedy-hazlitt-1852-vineyards-dec-2026/"
+  },
+  {
+    "date": "2026-12-18",
+    "venue": "Scale House Brewery",
+    "artist": "FAR Trio",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2026-12-18",
@@ -3270,6 +3354,13 @@
   },
   {
     "date": "2026-12-19",
+    "venue": "Scale House Brewery",
+    "artist": "Ben Bart",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-19",
     "venue": "Two Goats Brewing",
     "artist": "Notorious Stringbusters",
     "time": "7:00 PM - 10:00 PM",
@@ -3290,6 +3381,13 @@
     "url": "https://www.gristironbrewing.com"
   },
   {
+    "date": "2026-12-23",
+    "venue": "Scale House Brewery",
+    "artist": "Meg Williams",
+    "time": "6:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
     "date": "2026-12-24",
     "venue": "Grist Iron Brewing",
     "artist": "CLOSED: Merry Christmas from Grist Iron!",
@@ -3305,10 +3403,31 @@
   },
   {
     "date": "2026-12-27",
+    "venue": "Scale House Brewery",
+    "artist": "Sam Nitsch",
+    "time": "5:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-27",
     "venue": "Two Goats Brewing",
     "artist": "Winter Break",
     "time": "12:00 PM12:00",
     "url": "https://www.twogoatsbrewing.com"
+  },
+  {
+    "date": "2026-12-30",
+    "venue": "Scale House Brewery",
+    "artist": "Jaimie Lee",
+    "time": "6:00 PM - 8:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
+  },
+  {
+    "date": "2026-12-31",
+    "venue": "Scale House Brewery",
+    "artist": "Hector Open Mic",
+    "time": "6:00 PM - 9:00 PM",
+    "url": "https://www.scalehousebrewery.com/events"
   },
   {
     "date": "2027-01-03",
