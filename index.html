@@ -450,8 +450,8 @@ const EVENTS = [
   {date:"2026-09-19", venue:"Grist Iron Brewing", artist:"The Sweats", time:"6–9 PM", url:"https://www.gristironbrewing.com/events-live-music"},
   {date:"2026-09-19", venue:"Two Goats Brewing", artist:"Far Trio", time:"6–9 PM", url:"https://www.twogoatsbrewing.com"},
   {date:"2026-09-20", venue:"Hazlitt 1852 Vineyards", artist:"[Festival] Red Cat’s Harvest Party – vendors, food trucks, wine specials", time:"11 AM–5:30 PM", url:"https://www.southeastseneca.com/events/red-cats-harvest-party"},
-  {date:"2026-09-20", venue:"Hazlitt 1852 Vineyards", artist:"Madelyn Rose @ The Oasis", time:"11 AM–1 PM", url:"https://www.southeastseneca.com/events/red-cats-harvest-party"},
   {date:"2026-09-20", venue:"Hazlitt 1852 Vineyards", artist:"Steve Piotrowski", time:"2–5 PM", url:"https://hazlitt1852.com"},
+  {date:"2026-09-20", venue:"Hazlitt 1852 Vineyards", artist:"Madelyn Rose @ The Oasis", time:"11 AM–1 PM", url:"https://www.southeastseneca.com/events/red-cats-harvest-party"},
   {date:"2026-09-20", venue:"Hazlitt 1852 Vineyards", artist:"Betty’s Ghost @ The Oasis", time:"2–5 PM", url:"https://www.southeastseneca.com/events/red-cats-harvest-party"},
   {date:"2026-09-20", venue:"Rasta Ranch Vineyards", artist:"Sunday Sessions (Mike Shaw)", time:"2–5 PM", url:"https://www.southeastseneca.com/events"},
   {date:"2026-09-20", venue:"Scale House Brewery", artist:"Kegs & Eggs w/ FAR Trio", time:"8–11 AM", url:"https://www.scalehousebrews.com/events"},
@@ -651,43 +651,83 @@ const EVENTS = [
 
   // Week of Nov 23–29
   {date:"2026-11-23", venue:"Solera Taphouse", artist:"[Trivia] Monday Night Trivia", time:"6:30 PM", url:"https://www.solerataphouse.com/events"},
+  {date:"2026-11-27", venue:"Finger Lakes Distilling", artist:"Black Friday Party", time:"5:00 PM - 8:00 PM", url:"https://fingerlakesdistilling.com/event/black-friday-party/"},
   {date:"2026-11-27", venue:"Solera Taphouse", artist:"Pat Carlineo", time:"6:00 PM - 9:00 PM", url:"https://www.solerataphouse.com/events"},
-  {date:"2026-11-27", venue:"Solera Taphouse", artist:"Live Music: Pat carlineo and Friends", time:"6–9 PM", url:"https://www.solerataphouse.com"},
   {date:"2026-11-27", venue:"Two Goats Brewing", artist:"Technicolor Trailer Park", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
   {date:"2026-11-28", venue:"Grist Iron Brewing", artist:"JAY", time:"5:00 PM - 8:00 PM", url:"https://www.gristironbrewing.com/events-live-music"},
   {date:"2026-11-28", venue:"Two Goats Brewing", artist:"Doc Possum Duo", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
 
   // Week of Nov 30 – Dec 6
+  {date:"2026-11-30", venue:"Solera Taphouse", artist:"[Trivia] Monday Night Trivia", time:"6:30 PM", url:"https://www.solerataphouse.com/events"},
   {date:"2026-12-04", venue:"Grist Iron Brewing", artist:"FAR Trio", time:"6:00 PM - 9:00 PM", url:"https://www.gristironbrewing.com/events-live-music"},
   {date:"2026-12-04", venue:"Hazlitt 1852 & Wagner Vineyards", artist:"[Wine Trail] Deck the Halls", time:"10:00 AM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
+  {date:"2026-12-04", venue:"Hazlitt 1852 Vineyards", artist:"December Deck the Halls Seneca Lake Wine Trail Event", time:"12:00 PM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
+  {date:"2026-12-04", venue:"Solera Taphouse", artist:"Live Music: Gerard burke", time:"6–9 PM", url:"https://www.solerataphouse.com"},
   {date:"2026-12-04", venue:"Two Goats Brewing", artist:"Cisco PL Duo", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
   {date:"2026-12-05", venue:"Grist Iron Brewing", artist:"Frank Raponi", time:"5:00 PM - 8:00 PM", url:"https://www.gristironbrewing.com/events-live-music"},
+  {date:"2026-12-05", venue:"Grist Iron Brewing", artist:"A Very Merry Gristmas Holiday Shopping Bazaar", time:"1–4 PM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-05", venue:"Hazlitt 1852 & Wagner Vineyards", artist:"[Wine Trail] Deck the Halls", time:"10:00 AM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
+  {date:"2026-12-05", venue:"Hazlitt 1852 Vineyards", artist:"December Deck the Halls Seneca Lake Wine Trail Event", time:"12:00 PM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
   {date:"2026-12-05", venue:"Two Goats Brewing", artist:"Sing Trece", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
+  {date:"2026-12-06", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-06", venue:"Hazlitt 1852 & Wagner Vineyards", artist:"[Wine Trail] Deck the Halls", time:"12:00 PM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
+  {date:"2026-12-06", venue:"Hazlitt 1852 Vineyards", artist:"December Deck the Halls Seneca Lake Wine Trail Event", time:"12:00 PM - 5:00 PM", url:"https://hazlitt1852.com/event/december-deck-the-halls-seneca-lake-wine-trail-event/"},
 
   // Week of Dec 7–13
+  {date:"2026-12-10", venue:"Hazlitt 1852 Vineyards", artist:"Ladies Night: Sleigh All Day!", time:"5:00 PM - 8:00 PM", url:"https://hazlitt1852.com/event/ladies-night-sleigh-all-day-december-10-2026/"},
+  {date:"2026-12-11", venue:"Grist Iron Brewing", artist:"Live Music Lineup: Jon Lamanna", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
+  {date:"2026-12-11", venue:"Solera Taphouse", artist:"Live Music: Mystic Twangers", time:"6–9 PM", url:"https://www.solerataphouse.com"},
   {date:"2026-12-11", venue:"Two Goats Brewing", artist:"Oliver Burdo", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
   {date:"2026-12-12", venue:"Damiani Wine Cellars", artist:"[Wine Club] December Wine Club Party", time:"All Day", url:"https://damianiwinecellars.com/events/"},
+  {date:"2026-12-12", venue:"Grist Iron Brewing", artist:"Photos with Santa-Paws!", time:"12–3 PM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-12", venue:"Two Goats Brewing", artist:"Terrapin Station Acoustic", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
 
   // Week of Dec 14–20
+  {date:"2026-12-18", venue:"Grist Iron Brewing", artist:"Live Music Lineup: Meg Williams", time:"6–9 PM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-18", venue:"Hazlitt 1852 Vineyards", artist:"[Comedy] Next Stop Comedy", time:"7:00 PM - 9:00 PM", url:"https://hazlitt1852.com/event/next-stop-comedy-hazlitt-1852-vineyards-dec-2026/"},
+  {date:"2026-12-18", venue:"Hazlitt 1852 Vineyards", artist:"Next Stop Comedy @ Hazlitt 1852 Vineyards", time:"7:00 PM - 9:00 PM", url:"https://hazlitt1852.com/event/next-stop-comedy-hazlitt-1852-vineyards-dec-2026/"},
+  {date:"2026-12-18", venue:"Solera Taphouse", artist:"Live Music: Steve Piotrowski", time:"6–9 PM", url:"https://www.solerataphouse.com"},
   {date:"2026-12-18", venue:"Two Goats Brewing", artist:"Brett Beardslee", time:"5:00 PM - 7:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
+  {date:"2026-12-18", venue:"Two Goats Brewing", artist:"Stratcat Willie and the Strays", time:"5–7 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-12-19", venue:"Grist Iron Brewing", artist:"Live Music Lineup: The Soul Benders", time:"5–8 PM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-19", venue:"Lucky Hare Brewing", artist:"Festivus at the Brewery Party!!", time:"1:00 PM", url:"https://www.luckyharebrewing.com"},
   {date:"2026-12-19", venue:"Two Goats Brewing", artist:"Notorious Stringbusters", time:"7:00 PM - 10:00 PM", url:"https://www.twogoatsbrewing.com/music-events"},
+  {date:"2026-12-19", venue:"Two Goats Brewing", artist:"Brett Beardslee", time:"4:30–6:30 PM", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-12-20", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
 
   // Week of Dec 21–27
+  {date:"2026-12-24", venue:"Grist Iron Brewing", artist:"CLOSED: Merry Christmas from Grist Iron!", time:"1:00 AM", url:"https://www.gristironbrewing.com"},
   {date:"2026-12-25", venue:"Two Goats Brewing", artist:"Winter Break", time:"12:00 PM12:00", url:"https://www.twogoatsbrewing.com"},
+  {date:"2026-12-27", venue:"Two Goats Brewing", artist:"Winter Break", time:"12:00 PM12:00", url:"https://www.twogoatsbrewing.com"},
+
+  // Week of Dec 28 – Jan 3
+  {date:"2027-01-03", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
+
+  // Week of Jan 11–17
+  {date:"2027-01-17", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
 
   // Week of Jan 18–24
   {date:"2027-01-22", venue:"Damiani Wine Cellars", artist:"[Festival] South East Seneca Cook-Off", time:"12:00 PM - 5:00 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2027-01-22", venue:"Finger Lakes Distilling", artist:"[Festival] Chowder Cook Off", time:"12:00 PM - 5:00 PM", url:"https://fingerlakesdistilling.com/event/chowder-cook-off/"},
+  {date:"2027-01-22", venue:"Finger Lakes Distilling", artist:"Chowder Cook Off", time:"12:00 PM - 5:00 PM", url:"https://fingerlakesdistilling.com/event/chowder-cook-off/"},
   {date:"2027-01-22", venue:"Two Goats Brewing", artist:"South East Seneca Cook-Off", time:"12:30 PM12:30", url:"https://www.twogoatsbrewing.com"},
   {date:"2027-01-23", venue:"Damiani Wine Cellars", artist:"[Festival] South East Seneca Cook-Off", time:"12:00 PM - 5:00 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2027-01-23", venue:"Finger Lakes Distilling", artist:"[Festival] Chowder Cook Off", time:"12:00 PM - 5:00 PM", url:"https://fingerlakesdistilling.com/event/chowder-cook-off/"},
+  {date:"2027-01-23", venue:"Finger Lakes Distilling", artist:"Chowder Cook Off", time:"12:00 PM - 5:00 PM", url:"https://fingerlakesdistilling.com/event/chowder-cook-off/"},
+
+  // Week of Jan 25–31
+  {date:"2027-01-31", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
 
   // Week of Feb 8–14
   {date:"2027-02-13", venue:"Damiani Wine Cellars", artist:"[Tasting] Meritage Blending Class", time:"11:00 AM - 2:00 PM", url:"https://damianiwinecellars.com/events/"},
   {date:"2027-02-14", venue:"Damiani Wine Cellars", artist:"[Tasting] Meritage Blending Class", time:"11:00 AM - 2:00 PM", url:"https://damianiwinecellars.com/events/"},
+  {date:"2027-02-14", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
+
+  // Week of Feb 22–28
+  {date:"2027-02-28", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
+
+  // Week of Mar 8–14
+  {date:"2027-03-14", venue:"Grist Iron Brewing", artist:"Sunday Trivia with FLX Trivia", time:"1–3 PM", url:"https://www.gristironbrewing.com"},
 ];
 buildPage(EVENTS);
 </script>
